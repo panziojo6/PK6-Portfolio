@@ -150,7 +150,7 @@ export default function Hero() {
           >
             <div className="profile-glow">
               <img
-                src="img/profile.jpeg"
+                src="/img/profile.jpeg"
                 alt="profile"
                 className="profile-img grand"
               />

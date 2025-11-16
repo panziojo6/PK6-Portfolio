@@ -13,7 +13,7 @@ const projects = [
       "Phenotype-based classification using Sentinel-2, SAVI/MNDWI time-series, sinusoidal fitting, One-Class SVM, and post-processing.",
     tags: ["Sentinel-2", "Python", "OCSVM", "GIS"],
     role: "Research / Algorithm / Pipeline",
-    image: "img/KSL_นำ้พอง.png",
+    image: "/img/KSL_นำ้พอง.png",
   },
   {
     title: "IEEE ICCSE 2025 Paper: Phenotype-Based Classification of Sugarcane and Rice Fields Using One-Class SVM from Satellite Imagery",
@@ -22,7 +22,7 @@ const projects = [
       Accepted for publication at IEEE ICCSE 2025, demonstrating scalable, high-precision agricultural analytics.",
     tags: ["IEEE Paper", "Satellite Analytics", "One-Class SVM", "Agriculture"],
     role: "Research / Author",
-    image: "img/IEEE.jpeg",
+    image: "/img/IEEE.jpeg",
   },
   {
     title: "GNSS RTK, PPP, and NTRIP Caster System",
@@ -30,8 +30,8 @@ const projects = [
       "Real-time GNSS + RTK monitoring system with map visualization, FastAPI backend, NTRIP integration, and ESP32 rover pipeline.",
     tags: ["GNSS", "FastAPI", "RTK", "WebSocket", "Low-cost GNSS", "Rasberry Pi"],
     role: "Full-Stack / Systems",
-    image: "img/GNSS.jpeg",
-    video: "video/IMG_9253.MOV"
+    image: "/img/GNSS.jpeg",
+    video: "/video/IMG_9253.MOV"
   },
 
   {
@@ -40,7 +40,7 @@ const projects = [
       "End-to-end sugarcane yield estimation from raster analytics → interactive dashboard with spatial layers.",
     tags: ["Python", "SQL", "Data Viz", "Math Model"],
     role: "Geo-Analytics / Frontend",
-    image: "img/Yield.jpg",
+    image: "/img/Yield.jpg",
   },
   {
     title: "InSAR Deformation Viewer",
@@ -48,7 +48,7 @@ const projects = [
       "Time-series InSAR deformation explorer with API profile extraction, regression fitting, and interactive charts.",
     tags: ["InSAR", "Fast API", "Multiple Linear", "Charts"],
     role: "Backend / UI",
-    image: "img/insar.png",
+    image: "/img/insar.png",
   },
   {
     title: "Graph-Based Shortest Path Analyzer",
@@ -56,7 +56,7 @@ const projects = [
       "A high-performance shortest-path engine implementing Dijkstra’s algorithm and graph optimization techniques for large-scale network analysis.",
     tags: ["Shortest Path", "Dijkstra", "Graph Theory"],
     role: "Algorithm",
-    image: "img/Cluster.png",
+    image: "/img/Cluster.png",
   }
 
 
