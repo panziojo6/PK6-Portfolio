@@ -5,6 +5,9 @@ import MotionButton from "./MotionButton";
 
 const { Title, Paragraph, Text } = Typography;
 
+// GitHub Pages Base URL
+const base = import.meta.env.BASE_URL;
+
 function Counter({ to, duration = 2 }) {
   const [value, setValue] = useState(0);
 
@@ -60,7 +63,7 @@ export default function Hero() {
           </Paragraph>
         </motion.div>
 
-        {/* TAGS ANIMATION */}
+        {/* TAGS */}
         <motion.div
           className="hero-tags"
           initial="hidden"
@@ -69,8 +72,8 @@ export default function Hero() {
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0.1 },
-            },
+              transition: { staggerChildren: 0.1 }
+            }
           }}
         >
           {[
@@ -84,7 +87,7 @@ export default function Hero() {
               key={tag.t}
               variants={{
                 hidden: { opacity: 0, y: 10 },
-                visible: { opacity: 1, y: 0 },
+                visible: { opacity: 1, y: 0 }
               }}
             >
               <Tag color={tag.c}>{tag.t}</Tag>
@@ -103,11 +106,11 @@ export default function Hero() {
           <MotionButton
             type="primary"
             size="large"
-            onClick={() => {
-              document
-                .getElementById("projects")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
+            onClick={() =>
+              document.getElementById("projects")?.scrollIntoView({
+                behavior: "smooth"
+              })
+            }
           >
             View Projects
           </MotionButton>
@@ -115,11 +118,11 @@ export default function Hero() {
           <MotionButton
             size="large"
             ghost
-            onClick={() => {
-              document
-                .getElementById("contact")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
+            onClick={() =>
+              document.getElementById("contact")?.scrollIntoView({
+                behavior: "smooth"
+              })
+            }
           >
             Contact Me
           </MotionButton>
@@ -136,12 +139,13 @@ export default function Hero() {
             delay: 0.2,
             duration: 0.9,
             type: "spring",
-            stiffness: 80,
+            stiffness: 80
           }}
           whileHover={{ scale: 1.02 }}
         >
-
           <div className="aurora-bg"></div>
+
+          {/* Profile */}
           <motion.div
             className="profile-container"
             initial={{ opacity: 0, y: 15 }}
@@ -150,53 +154,48 @@ export default function Hero() {
           >
             <div className="profile-glow">
               <img
-                src="/img/profile.jpeg"
+                src={`${base}img/profile.jpeg`}
                 alt="profile"
                 className="profile-img grand"
               />
             </div>
           </motion.div>
 
+          {/* Education */}
           <motion.div
             className="edu-timeline"
             initial="hidden"
             animate="visible"
             variants={{
-              visible: {
-                transition: { staggerChildren: 0.15 }
-              }
+              visible: { transition: { staggerChildren: 0.15 } }
             }}
           >
-            {
-              [
-                {
-                  degree: "Bachelor of Engineering",
-                  uni: "Kasetsart University, Bangkok, Thailand · April 2024"
-                },
-                {
-                  degree: "Master of Engineering",
-                  uni: "Kasetsart University, Bangkok, Thailand · December 2025 (Expected)"
-                }
-              ].map((item, i) => (
-                <motion.div
-                  className="edu-item"
-                  variants={{
-                    hidden: { opacity: 0, x: -20 },
-                    visible: { opacity: 1, x: 0 },
-                  }}
-                  key={i}
-                >
-                  <div className="dot" />
-                  <div className="edu-text">
-                    <div className="edu-degree">{item.degree}</div>
-                    <div className="edu-uni">{item.uni}</div>
-                  </div>
-                </motion.div>
-              ))
-            }
+            {[
+              {
+                degree: "Bachelor of Engineering",
+                uni: "Kasetsart University · April 2024"
+              },
+              {
+                degree: "Master of Engineering",
+                uni: "Kasetsart University · Dec 2025 (Expected)"
+              }
+            ].map((item, i) => (
+              <motion.div
+                className="edu-item"
+                variants={{
+                  hidden: { opacity: 0, x: -20 },
+                  visible: { opacity: 1, x: 0 }
+                }}
+                key={i}
+              >
+                <div className="dot" />
+                <div className="edu-text">
+                  <div className="edu-degree">{item.degree}</div>
+                  <div className="edu-uni">{item.uni}</div>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
-
-
 
           <Paragraph className="hero-meta">
             Satellite imagery · GNSS · Machine Learning · Deep Learning · Python
