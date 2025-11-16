@@ -109,6 +109,12 @@ const projects = [
     role: "Research / Author",
     image: `${base}img/IEEE.jpeg`,
   },
+  { 
+    title: "InSAR Deformation Viewer", 
+    description: "Time-series InSAR deformation explorer with API profile extraction, regression fitting, and interactive charts.", 
+    tags: ["InSAR", "Fast API", "Multiple Linear", "Charts"], 
+    role: "Backend / UI", 
+    image: `${base}img/insar.png"` }
 ];
 
 
