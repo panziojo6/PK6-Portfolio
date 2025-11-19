@@ -5,7 +5,6 @@ import MotionButton from "./MotionButton";
 
 const { Title, Paragraph, Text } = Typography;
 
-// GitHub Pages Base URL
 const base = import.meta.env.BASE_URL;
 
 function Counter({ to, duration = 2 }) {
@@ -45,7 +44,7 @@ export default function Hero() {
           transition={{ delay: 0.2, duration: 0.8 }}
         >
           <Title level={3} className="hero-subtitle">
-            Machine Learning · Full-Stack Developer · Geospatial · GNSS · Remote Sensing
+            Machine Learning · Full-Stack Developer · Geospatial Engineer · GNSS · Remote Sensing
           </Title>
         </motion.div>
 
