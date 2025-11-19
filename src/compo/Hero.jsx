@@ -173,11 +173,11 @@ export default function Hero() {
             {[
               {
                 degree: "Bachelor of Engineering",
-                uni: "Kasetsart University · April 2024"
+                uni: "Kasetsart University, Bangkok Thailand · April 2024"
               },
               {
                 degree: "Master of Engineering",
-                uni: "Kasetsart University · Dec 2025 (Expected)"
+                uni: "Kasetsart University, Bangkok Thailand · Dec 2025 (Expected)"
               }
             ].map((item, i) => (
               <motion.div
