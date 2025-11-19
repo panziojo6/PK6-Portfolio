@@ -74,7 +74,7 @@ const projects = [
   },
   {
     title:
-      "IEEE ICCSE 2025 – Phenotype-Based Crop Classification (One-Class SVM)",
+      "IEEE ICSEC 2025 – Phenotype-Based Crop Classification (One-Class SVM)",
     description:
       "IEEE-accepted phenotype-based crop mapping system using Sentinel-2 and dual One-Class SVM for sugarcane & rice.",
     tags: ["IEEE Paper", "Satellite Analytics", "OCSVM", "Agriculture"],
