@@ -70,7 +70,7 @@ const projects = [
       "Phenotype-based classification using Sentinel-2 time-series, sinusoidal fitting, One-Class SVM, and geospatial post-processing.",
     tags: ["Sentinel-2", "Python", "OCSVM", "GIS"],
     role: "Research / Algorithm / Pipeline",
-    image: `${base}img/KSL_นำ้พอง.png`,
+    image: `${base}img/cane.png`,
   },
   {
     title:
