@@ -282,6 +282,7 @@
 .section-text {
   color: #9ca3af;
   max-width: 720px;
+  justify-content: center;
 }
 
 /* About */
