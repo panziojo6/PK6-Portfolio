@@ -43,6 +43,7 @@
   font-weight: 900;
   letter-spacing: 1px;
   color: #fff;
+  text-shadow: 0 0 20px rgba(166, 91, 255, 0.4);
   cursor: pointer;
 }
 
