@@ -1,7 +1,3 @@
-/* ================================
-   GRAND PROJECTS
-================================ */
-
 .grand-project-card {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 18px;
@@ -20,7 +16,7 @@
   transform: translateY(-4px);
 }
 
-/* Aurora background overlay */
+
 .grand-project-card::before {
   content: "";
   position: absolute;
