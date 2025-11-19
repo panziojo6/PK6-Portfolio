@@ -74,11 +74,12 @@ const projects = [
     image: `${base}img/tamroupao.png`
   },
   {
-    title: "InSAR Deformation Viewer",
-    description: "Time-series InSAR deformation explorer with API profile extraction, regression fitting, and interactive charts.",
-    tags: ["InSAR", "Fast API", "Multiple Linear", "Charts"],
-    role: "Backend / UI",
-    image: `${base}img/insar.png`
+    title: "Russian Satellite Roof Detection",
+    description:
+      "An object detection pipeline that uses high-resolution Russian satellite imagery to automatically detect building rooftops for urban mapping, exposure analysis, and infrastructure planning.",
+    tags: ["Object Detection", "Satellite Imagery", "Computer Vision", "Remote Sensing"],
+    role: "Deep Learning / Geospatial",
+    image: `${base}img/roof_detection.png`
   },
   {
     title: "Airflow-Based Geospatial ETL Pipeline",
@@ -94,7 +95,23 @@ const projects = [
     tags: ["Satellite Analytics", "Yield Estimation", "Farmer App", "Geospatial"],
     role: "Backend / Frontend",
     image: `${base}img/Framrak.png`
+  },
+  {
+    title: "PM2.5 Genetic Algorithm Optimization",
+    description:
+      "A data analytics system that applies genetic algorithms together with Pearson and Spearman correlation to select key factors and optimize PM2.5 prediction models.",
+    tags: ["PM2.5", "Genetic Algorithm", "Pearson Correlation", "Spearman Correlation"],
+    role: "Algorithm / Backend",
+    image: `${base}img/pm25.png`
+  },
+  {
+    title: "InSAR Deformation Viewer",
+    description: "Time-series InSAR deformation explorer with API profile extraction, regression fitting, and interactive charts.",
+    tags: ["InSAR", "Fast API", "Multiple Linear", "Charts"],
+    role: "Backend / UI",
+    image: `${base}img/insar.png`
   }
+
 
 
 
@@ -109,9 +126,9 @@ export default function Projects() {
       <Title level={2} className="section-title">Builds & Experiments</Title>
 
       <Paragraph className="section-text">
-       A curated collection of experimental and production-ready systems that merge satellite-derived insights, 
-       GNSS technologies, machine-learning models, and geospatial workflows. Each build demonstrates a full-stack engineering 
-       approach to analyzing, predicting, and visualizing spatial phenomena in real-world environments.
+        A curated collection of experimental and production-ready systems that merge satellite-derived insights,
+        GNSS technologies, machine-learning models, and geospatial workflows. Each build demonstrates a full-stack engineering
+        approach to analyzing, predicting, and visualizing spatial phenomena in real-world environments.
       </Paragraph>
 
       <Row gutter={[32, 32]}>
