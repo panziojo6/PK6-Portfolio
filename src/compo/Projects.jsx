@@ -89,6 +89,13 @@ const projects = [
     image: `${base}img/Airflow.png`
   },
   {
+    title: "Flood Level Prediction System",
+    description: "An end-to-end time-series disaster analytics pipeline using Airflow, real-time API ingestion, regression modeling, and interactive visual dashboards.",
+    tags: ["Flood", "Landslide", "Time-Series", "Regression", "Visualization"],
+    role: "Backend / Data Pipeline / UI",
+    image: `${base}img/model_rain.jpg`
+  },
+  {
     title: "FarmRak System",
     description:
       "A mobile and web platform that allows farmers to view their own field data, including satellite-derived yield estimates and real-time geospatial analytics.",

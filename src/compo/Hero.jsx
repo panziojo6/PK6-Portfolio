@@ -33,7 +33,7 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
         >
           <Title level={1} className="hero-title">
-            Hi, I&apos;m <span className="accent">Punnawit</span>
+            Hi, I&apos;m <span className="accent">Punnawit KOTOSRI</span>
           </Title>
         </motion.div>
 
