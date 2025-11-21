@@ -79,11 +79,34 @@ export default function Hero() {
             }}
           >
             {[
-              { c: "purple", t: "React" },
-              { c: "geekblue", t: "Deep Learning" },
-              { c: "cyan", t: "Machine Learning" },
-              { c: "gold", t: "GIS / Remote Sensing" },
-              { c: "magenta", t: "Crop Classification" },
+                // AI & ML
+                { c: "geekblue", t: "Deep Learning" },
+                { c: "cyan", t: "Machine Learning" },
+                { c: "lime", t: "Time-Series Modeling" },
+
+                // Geospatial
+                { c: "magenta", t: "Geospatial Intelligence" },
+                { c: "gold", t: "Remote Sensing" },
+                { c: "geekblue", t: "Crop Phenotyping / Agriculture" },
+
+                // Satellite & GNSS
+                { c: "orange", t: "Satellite Analytics" },
+                { c: "volcano", t: "GNSS · RTK · NTRIP · PPP" },
+
+                // Data Engineering
+                { c: "red", t: "Airflow ETL Pipelines" },
+                { c: "cyan", t: "Big Data Processing" },
+
+                // Engineering / Dev
+                { c: "blue", t: "JavaScript · React" },
+                { c: "purple", t: "Python · ML Stack" },
+                { c: "lime", t: "Full-Stack Engineering" },
+
+                // Cloud & Infra
+                { c: "gold", t: "Cloud-Native · Docker" },
+                { c: "green", t: "AWS · GCP · Azure" },
+                { c: "volcano", t: "CI/CD · DevOps" },
+                { c: "red", t: "Kubernetes" }
             ].map((tag) => (
               <motion.div
                 key={tag.t}
@@ -229,7 +252,7 @@ export default function Hero() {
         footer={null}
         onCancel={() => setOpen(false)}
         centered
-        width={420}      
+        width={420}
         bodyStyle={{ padding: 0, background: "transparent" }}
         zIndex={2000}
       >
