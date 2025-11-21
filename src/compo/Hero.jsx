@@ -58,10 +58,10 @@ export default function Hero() {
             transition={{ delay: 0.4, duration: 0.8 }}
           >
             <Paragraph className="hero-text">
-              I build data-driven web applications, geospatial analytics tools,
-              and high-performance pipelines for satellite imagery, GNSS, and
-              cloud-native systems. Passionate about clean architecture, readable
-              code, and beautiful interfaces.
+              I build data-driven web applications geospatial analytics tools
+              and high-performance pipelines for satellite imagery GNSS and
+              cloud-native systems. Passionate about clean architecture readable
+              code and beautiful interfaces.
             </Paragraph>
           </motion.div>
 

@@ -1,8 +1,8 @@
-import { Row, Col, Card, Tag, Typography } from "antd";
+import { Row, Col, Typography } from "antd";
 import { motion } from "framer-motion";
 import "../css/skills-grand.css";
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph } = Typography;
 
 const categories = [
   {
@@ -47,14 +47,105 @@ const metrics = [
 ];
 
 const techStack = [
-  "React", "FastAPI", "PostGIS", "Sentinel-2", "InSAR",
-  "GNSS", "NTRIP", "Docker", "AWS", "ESP32",
-  "Python", "LSTM", "OCSVM", "TensorFlow", "QGIS",
+  /* ————————————————
+     MACHINE LEARNING & AI
+  ———————————————— */
+  { icon: "🤖", name: "Machine Learning" },
+  { icon: "🧠", name: "Deep Learning" },
+  { icon: "🔮", name: "LSTM" },
+  { icon: "📈", name: "Time-Series Modeling" },
+  { icon: "🧪", name: "OCSVM" },
+  { icon: "🌲", name: "Random Forest" },
+  { icon: "🔥", name: "XGBoost" },
+  { icon: "🧊", name: "Isolation Forest" },
+  { icon: "⚙️", name: "Gradient Boosting" },
+  { icon: "🎛️", name: "Ensemble Learning" },
+  { icon: "🔍", name: "Unsupervised Learning" },
+  { icon: "🧩", name: "Representation Learning" },
+  { icon: "🧬", name: "CNN Models" },
+  { icon: "📡", name: "Attention Mechanisms" },
+  { icon: "🌀", name: "Autoencoders" },
+
+  /* ————————————————
+     GEOAI / REMOTE SENSING
+  ———————————————— */
+  { icon: "🛰️", name: "Sentinel-2" },
+  { icon: "🌾", name: "SAVI / MNDWI" },
+  { icon: "📡", name: "InSAR" },
+  { icon: "🗺️", name: "Land-Use Classification" },
+  { icon: "🌤️", name: "Phenology Modeling" },
+  { icon: "🧭", name: "Geospatial Analytics" },
+  { icon: "🌏", name: "RasterIO" },
+  { icon: "🧱", name: "GDAL" },
+  { icon: "📊", name: "QGIS" },
+  { icon: "🚜", name: "Crop Classification" },
+  { icon: "🧮", name: "Time-Series Phenotyping" },
+
+  /* ————————————————
+     GNSS / REAL-TIME SYSTEMS
+  ———————————————— */
+  { icon: "📡", name: "GNSS" },
+  { icon: "🛰️", name: "RTK" },
+  { icon: "🔗", name: "NTRIP" },
+  { icon: "📶", name: "PPP" },
+  { icon: "🧭", name: "u-blox ZED-F9P" },
+  { icon: "📟", name: "UBX Parsing" },
+  { icon: "🌐", name: "Real-Time Mapping" },
+
+  /* ————————————————
+     BACKEND & DATABASE
+  ———————————————— */
+  { icon: "⚡", name: "FastAPI" },
+  { icon: "🧩", name: "Node.js" },
+  { icon: "🛠️", name: "Express" },
+  { icon: "🗄️", name: "PostGIS" },
+  { icon: "🧱", name: "PostgreSQL" },
+  { icon: "🦆", name: "DuckDB" },
+
+  /* ————————————————
+     CLOUD / DEVOPS / INFRA
+  ———————————————— */
+  { icon: "🐳", name: "Docker" },
+  { icon: "☁️", name: "AWS" },
+  { icon: "🚀", name: "GCP" },
+  { icon: "🔧", name: "CI/CD" },
+  { icon: "📦", name: "Kubernetes" },
+  { icon: "🛰️", name: "Cloud-Native Systems" },
+  { icon: "⏳", name: "Airflow ETL" },
+
+  /* ————————————————
+     FRONTEND & UI/UX
+  ———————————————— */
+  { icon: "⚛️", name: "React" },
+  { icon: "⚡", name: "Vite" },
+  { icon: "🎨", name: "Framer Motion" },
+  { icon: "🧩", name: "Component Design System" },
+
+  /* ————————————————
+     EMBEDDED / IoT
+  ———————————————— */
+  { icon: "⚙️", name: "ESP32" },
+  { icon: "🐍", name: "MicroPython" },
+  { icon: "🔌", name: "UART / Serial" },
+
+  /* ————————————————
+     LANGUAGES
+  ———————————————— */
+  { icon: "🐍", name: "Python" },
+  { icon: "🟨", name: "JavaScript" },
+  { icon: "📘", name: "C++" },
+  { icon: "🔵", name: "C" },
+  { icon: "⚙️", name: "Assembly" },
+  { icon: "📐", name: "MATLAB" },
+  { icon: "☕", name: "Java" },
+  { icon: "🗄️", name: "SQL" },
+
 ];
 
 export default function Skills() {
   return (
     <div className="skills-grand-container">
+      <div className="skills-aurora-bg"></div>
 
       <Title level={2} className="grand-title">Expertise & Achievements</Title>
       <Paragraph className="grand-text">
@@ -67,7 +158,7 @@ export default function Skills() {
           {categories.map((cat, index) => (
             <motion.div
               key={cat.title}
-              className="grand-card"
+              className="grand-card enhanced-card"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: index * 0.15 }}
@@ -86,7 +177,7 @@ export default function Skills() {
           ))}
         </Col>
 
-        {/* RIGHT SIDE — METRICS PANEL */}
+        {/* RIGHT SIDE — METRICS */}
         <Col xs={24} md={10}>
           <motion.div
             className="metrics-panel"
@@ -104,7 +195,14 @@ export default function Skills() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 viewport={{ once: true }}
               >
-                <div className="metric-value">{m.value}</div>
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="metric-value"
+                >
+                  {m.value}
+                </motion.div>
                 <div className="metric-label">{m.label}</div>
               </motion.div>
             ))}
@@ -116,14 +214,17 @@ export default function Skills() {
       <div className="tech-grid">
         {techStack.map((t, i) => (
           <motion.div
-            className="tech-item"
             key={i}
+            className="tech-item floating-tech"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
-            viewport={{ once: true }}
+            animate={{ y: [0, -4, 0] }}
+            transition={{
+              opacity: { duration: 0.4, delay: i * 0.05 },
+              y: { duration: 2, repeat: Infinity, repeatType: "mirror" }
+            }}
           >
-            {t}
+            <span className="tech-label">{t.icon} {t.name}</span>
           </motion.div>
         ))}
       </div>

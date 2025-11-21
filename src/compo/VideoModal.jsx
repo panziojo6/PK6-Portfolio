@@ -6,7 +6,7 @@ export default function VideoModal({ open, onClose, src }) {
       open={open}
       onCancel={onClose}
       footer={null}
-      width={800}
+      width={400}
       centered
     >
       <video
