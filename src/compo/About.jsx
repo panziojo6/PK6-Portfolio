@@ -36,15 +36,16 @@ export default function About() {
             </Title>
 
             <Paragraph className="section-text">
-              I&apos;m a full-stack developer and geospatial engineer who loves building
-              high-performance pipelines and beautiful, intuitive interfaces for satellite
-              imagery, GNSS, and agricultural analytics.
+              I&apos;m an Engineer with a strong focus on geospatial intelligence satellite analytics
+              and machine learning. I specialize in transforming large-scale spatial datasets—such 
+              as Sentinel-2 imagery time series, and GNSS data—into predictive models intelligent 
+              decision systems and actionable insights.
             </Paragraph>
 
             <Paragraph className="section-text">
-              My work blends Python, React, FastAPI, cloud infrastructure, and advanced
-              geospatial methods like Sentinel-2 processing, InSAR time series, and land-use
-              classification — turning massive datasets into tools that actually make sense.
+              My work combines Python, statistical modeling, and cloud-native data pipelines with advanced geospatial methods 
+              enabling robust analysis of agricultural environmental and location-based phenomena. I build end-to-end systems: 
+              from data ingestion and feature engineering to modeling evaluation and interactive visualization.
             </Paragraph>
           </motion.div>
         </Col>
