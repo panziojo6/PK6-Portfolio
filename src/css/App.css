@@ -409,83 +409,159 @@
   margin-top: 8px;
 }
 
-/* Contact */
-/* CONTACT SECTION GRAND */
+/* ==========================
+CONTACT SECTION WRAPPER==========================*/
+
 .contact-section {
   position: relative;
+  padding: 100px 0;
+  z-index: 1;
 }
 
-/* Left highlight card */
+/* Aurora Glow Background */
+.contact-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(168, 85, 247, 0.35), transparent 70%),
+    radial-gradient(circle at 85% 80%, rgba(56, 189, 248, 0.35), transparent 70%);
+  filter: blur(90px);
+  opacity: 0.7;
+  z-index: -1;
+  pointer-events: none;
+  animation: contactAurora 15s ease-in-out infinite alternate;
+}
+
+@keyframes contactAurora {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    transform: translateY(-40px) scale(1.1);
+  }
+}
+
+
+/* ==========================
+   TITLES & TEXT
+========================== */
+.section-title {
+  font-size: 36px !important;
+  font-weight: 800;
+  background: linear-gradient(90deg, #a855f7, #38bdf8);
+  -webkit-background-clip: text;
+  color: transparent !important;
+  margin-bottom: 18px;
+}
+
+.section-text {
+  opacity: 0.8;
+  font-size: 16px;
+  margin-bottom: 28px;
+}
+
+
+/* ==========================
+   LEFT PANEL – HIGHLIGHT CARD
+========================== */
 .contact-highlight-card {
   position: relative;
-  margin-top: 18px;
-  padding: 18px 18px 18px 18px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 22px;
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  margin: 26px 0;
   overflow: hidden;
 }
 
-.contact-highlight-aurora {
+.contact-highlight-card::before {
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 0% 0%, #a855f766 0%, transparent 60%),
-    radial-gradient(circle at 120% 140%, #22c55e55 0%, transparent 70%);
-  opacity: 0.6;
+  background:
+    radial-gradient(circle at 20% -10%, rgba(168, 85, 247, 0.45), transparent 70%),
+    radial-gradient(circle at 120% 120%, rgba(56, 189, 248, 0.45), transparent 90%);
+  opacity: 0.5;
+  pointer-events: none;
   z-index: -1;
 }
 
 .contact-highlight-title {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  opacity: 0.8;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
 }
 
 .contact-list {
-  margin: 10px 0 0;
-  padding-left: 18px;
-  font-size: 14px;
-  opacity: 0.9;
+  margin-top: 10px;
+  padding: 0;
+  list-style: none;
 }
 
 .contact-list li {
-  margin-bottom: 4px;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  position: relative;
+  opacity: 0.85;
 }
 
-/* Contact pills (email, LinkedIn, etc.) */
+.contact-list li::before {
+  content: "◆";
+  position: absolute;
+  left: 0;
+  color: #a855f7;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+
+/* ==========================
+   CONTACT PILL ITEMS
+========================== */
 .contact-info-group {
-  margin-top: 22px;
+  margin-top: 20px;
 }
 
 .contact-info-row {
   display: flex;
+  gap: 16px;
   flex-wrap: wrap;
-  gap: 10px;
 }
 
 .contact-pill {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(148, 163, 184, 0.45);
-  font-size: 13px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  transition: 0.3s ease;
 }
 
 .contact-pill.small {
-  font-size: 12px;
+  padding: 8px 14px;
+}
+
+.contact-pill:hover {
+  background: rgba(168, 85, 247, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.25);
 }
 
 .contact-pill-icon {
-  font-size: 14px;
+  font-size: 18px;
+  color: #a855f7;
 }
 
 .contact-pill-text {
-  color: #e5e7eb;
+  color: #fff;
+  font-weight: 500;
+  opacity: 0.9;
   text-decoration: none;
 }
 
@@ -493,28 +569,76 @@
   text-decoration: underline;
 }
 
-/* FORM CARD */
+
+/* ==========================
+   RIGHT PANEL – FORM CARD
+========================== */
 .contact-form-card {
-  background: rgba(15, 23, 42, 0.95);
+  background: rgba(255, 255, 255, 0.07);
   border-radius: 18px;
-  padding: 24px 22px;
-  border: 1px solid rgba(148, 163, 184, 0.45);
-  box-shadow: 0 0 40px rgba(147, 51, 234, 0.3),
-    0 0 90px rgba(56, 189, 248, 0.15);
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 0 35px rgba(147, 51, 234, 0.15),
+    0 0 70px rgba(94, 234, 212, 0.1);
+  position: relative;
+  overflow: hidden;
 }
 
+.contact-form-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(168, 85, 247, 0.45), transparent 75%),
+    radial-gradient(circle at 90% 140%, rgba(34, 211, 238, 0.45), transparent 80%);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+
+/* ==========================
+   FORM FIELDS
+========================== */
 .contact-form .ant-form-item-label>label {
-  color: #e5e7eb;
+  color: #ffffffcc;
+  font-weight: 500;
 }
 
-/* Responsive */
+.contact-form .ant-input,
+.contact-form .ant-input-textarea {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #fff !important;
+}
+
+.contact-form .ant-btn-primary {
+  height: 42px;
+  font-size: 16px;
+  background: linear-gradient(90deg, #a855f7, #38bdf8);
+  border: none;
+  border-radius: 10px;
+}
+
+.contact-form .ant-btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+
+/* ==========================
+   RESPONSIVE
+========================== */
 @media (max-width: 768px) {
-  .contact-form-card {
-    margin-top: 24px;
+  .section-title {
+    font-size: 28px !important;
+  }
+
+  .contact-section {
+    padding: 70px 0;
   }
 }
 
-/* Contact */
 
 
 

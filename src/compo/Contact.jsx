@@ -1,7 +1,7 @@
 import { Typography, Row, Col, Form, Input, Button, message, Space } from "antd";
 import { MailOutlined, LinkedinOutlined, GithubOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";
-import "../css/App.css"; // หรือไฟล์ที่คุณใช้รวม CSS
+import "../css/App.css";
 
 const { Title, Paragraph, Text } = Typography;
 const { TextArea } = Input;
