@@ -73,7 +73,7 @@ a {
 
 
 /* Animated Scrollbar */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 5px;
 }
 
@@ -91,4 +91,4 @@ a {
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(#c084fc, #5eead4);
-}
+} */
