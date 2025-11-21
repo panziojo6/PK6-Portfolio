@@ -43,7 +43,7 @@ export default function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          <Title level={3} className="hero-subtitle">
+          <Title level={4} className="hero-subtitle">
             Machine Learning · Full-Stack Developer · Geospatial Engineer · GNSS · Remote Sensing
           </Title>
         </motion.div>
