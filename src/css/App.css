@@ -103,10 +103,16 @@
 
 .hero-card {
   background: radial-gradient(circle at top, #1f2937, #020617);
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease;
   padding: 24px;
   border-radius: 16px;
   border: 1px solid rgba(148, 163, 184, 0.4);
   max-width: 320px;
+}
+
+.hero-card:hover {
+  transform: rotateY(6deg) rotateX(-4deg) scale(1.02);
 }
 
 .hero-pill {
@@ -425,7 +431,7 @@
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at 0% 0%, #a855f766 0%, transparent 60%),
-              radial-gradient(circle at 120% 140%, #22c55e55 0%, transparent 70%);
+    radial-gradient(circle at 120% 140%, #22c55e55 0%, transparent 70%);
   opacity: 0.6;
   z-index: -1;
 }
@@ -494,10 +500,10 @@
   padding: 24px 22px;
   border: 1px solid rgba(148, 163, 184, 0.45);
   box-shadow: 0 0 40px rgba(147, 51, 234, 0.3),
-              0 0 90px rgba(56, 189, 248, 0.15);
+    0 0 90px rgba(56, 189, 248, 0.15);
 }
 
-.contact-form .ant-form-item-label > label {
+.contact-form .ant-form-item-label>label {
   color: #e5e7eb;
 }
 
@@ -520,4 +526,47 @@
   color: #6b7280;
   padding: 24px 0 32px 0;
   font-size: 13px;
+}
+
+/* .hero-card {
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease;
+} */
+
+
+.floating-orb {
+  position: fixed;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.4;
+  z-index: -2;
+  pointer-events: none;
+  animation: orbFloat 12s ease-in-out infinite alternate;
+}
+
+
+.orb-purple {
+  background: #a855f7;
+  top: 15%;
+  left: 10%;
+}
+
+
+.orb-cyan {
+  background: #38bdf8;
+  bottom: 15%;
+  right: 12%;
+}
+
+
+@keyframes orbFloat {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+
+  100% {
+    transform: translateY(-40px) translateX(25px) scale(1.15);
+  }
 }

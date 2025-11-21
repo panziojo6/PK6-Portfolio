@@ -23,6 +23,9 @@ export default function App() {
       }}
     >
       <Layout className="app-layout">
+        <div className="floating-orb orb-purple"></div>
+        <div className="floating-orb orb-cyan"></div>
+        <div className="grid-bg"></div>
         <HeaderBar />
 
         <Content>

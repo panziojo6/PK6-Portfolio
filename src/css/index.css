@@ -31,7 +31,8 @@ a {
 
 .section {
   padding: 96px 0;
-  scroll-margin-top: 80px; /* เวลาคลิกเมนูแล้วเลื่อนจะไม่โดน header บัง */
+  scroll-margin-top: 80px;
+  /* เวลาคลิกเมนูแล้วเลื่อนจะไม่โดน header บัง */
 }
 
 .section-alt {
@@ -42,4 +43,52 @@ a {
   max-width: 1080px;
   margin: 0 auto;
   padding: 0 24px;
+}
+
+/* Floating Dot Grid Background */
+.grid-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 28px 28px;
+  background-image: radial-gradient(#a855f733 1px, transparent 1px);
+  opacity: 0.08;
+  z-index: -5;
+  animation: gridMove 16s linear infinite;
+  pointer-events: none;
+}
+
+
+@keyframes gridMove {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(140px);
+  }
+}
+
+
+/* Animated Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#a855f7, #38bdf8);
+  border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(#c084fc, #5eead4);
 }
