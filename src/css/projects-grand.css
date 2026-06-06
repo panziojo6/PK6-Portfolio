@@ -1,182 +1,233 @@
 /* =========================================
-   Grand Section Layout
+   CONTAINER & BACKGROUND
 ========================================= */
-.grand-section-container {
-  padding: 60px 20px;
-  background-color: #08080c; /* พื้นหลังสีเข้มช่วยให้ Glow ชัดขึ้น */
-  color: #fff;
+.premium-projects-container {
+  position: relative;
+  padding: 120px 20px;
+  background-color: #050505;
+  /* ขยับจากดำสนิท เป็นดำเหลือบสว่างขึ้นนิดๆ (Off-black) */
+  color: #ededed;
+  font-family: 'Inter', -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+.premium-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
 }
 
 .section-inner {
-  max-width: 1400px;
+  max-width: 1300px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
-/* --- Header --- */
-.grand-header {
+/* =========================================
+   HEADER (BRIGHTER METALLIC)
+========================================= */
+.premium-header-section {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
-.section-title {
-  color: #ffffff !important;
-  font-size: clamp(2rem, 5vw, 3rem) !important;
-  font-weight: 800 !important;
+.premium-title {
+  font-size: 42px !important;
+  font-weight: 900 !important;
+  letter-spacing: -1px;
   margin-bottom: 16px !important;
-  letter-spacing: -0.5px;
-}
-
-.section-title span {
-  background: linear-gradient(90deg, #a855f7, #38bdf8);
+  /* ปรับเฉดโลหะให้สว่างขึ้น เด้งออกจากพื้นหลัง */
+  background: linear-gradient(135deg, #ffffff 0%, #e4e4e7 60%, #94a3b8 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: transparent !important;
+  text-transform: uppercase;
 }
 
-.section-text {
-  color: #a1a1aa !important;
-  font-size: 1.1rem !important;
-  max-width: 800px;
+.premium-text {
+  max-width: 750px;
   margin: 0 auto !important;
+  color: #d4d4d8 !important;
+  /* เปลี่ยนจากเทาเข้มเป็นเทาสว่าง */
+  font-size: 17px !important;
   line-height: 1.6 !important;
 }
 
 /* =========================================
-   Grand Project Card (Premium Glassmorphism)
+   PROJECT CARD (LASER BORDER EFFECT)
 ========================================= */
-.grand-project-card {
-  background: rgba(20, 20, 25, 0.4);
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+.premium-card-wrapper {
   position: relative;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2),
-              0 0 40px rgba(147, 51, 234, 0.08),
-              0 0 80px rgba(56, 189, 248, 0.05);
+  border-radius: 12px;
+  padding: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  /* เพิ่มความสว่างขอบปกติ */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.premium-card-wrapper:hover {
+  transform: translateY(-6px);
+  /* เพิ่ม Glow สีม่วง/ฟ้าจางๆ รอบการ์ดตอน Hover ให้ดูมีชีวิตชีวา */
+  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.15),
+    0 0 20px rgba(56, 189, 248, 0.1);
+}
+
+.card-laser-border {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg,
+      transparent 0%,
+      transparent 70%,
+      rgba(168, 85, 247, 1) 85%,
+      rgba(56, 189, 248, 1) 100%);
+  animation: spinCard 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.premium-card-wrapper:hover .card-laser-border {
+  opacity: 1;
+}
+
+@keyframes spinCard {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================
+   CARD INNER CONTENT
+========================================= */
+.premium-project-content {
+  position: relative;
+  background: #0d0d12;
+  /* ดำอมน้ำเงินเข้มจัดๆ ทำให้การ์ดดูมีมิติ ไม่ดำบอด */
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   height: 100%;
+  z-index: 1;
+  overflow: hidden;
 }
 
-.grand-project-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
-              0 0 60px rgba(147, 51, 234, 0.25),
-              0 0 100px rgba(56, 189, 248, 0.15);
-}
-
-/* Inner Glow Effect */
-.grand-project-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 0% 0%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* --- Thumbnail & Media --- */
+/* --- Thumbnail --- */
 .project-thumb {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  z-index: 1;
+  border-bottom: 1px solid #27272a;
 }
 
 .thumb-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s ease, filter 0.4s ease;
+  /* ปลดล็อคสี! ลบ Grayscale ออก ลดแค่ความสว่างปกติลงนิดนึง */
+  filter: brightness(0.85) contrast(1.1);
+  transition: transform 0.5s ease, filter 0.5s ease;
 }
 
-.grand-project-card:hover .thumb-img {
-  transform: scale(1.08);
-  filter: brightness(1.05);
+.premium-card-wrapper:hover .thumb-img {
+  transform: scale(1.05);
+  /* ภาพสว่างวาบ สีสดชัดเจนขึ้นตอน Hover */
+  filter: brightness(1.1) contrast(1.1);
 }
 
 .thumb-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(20,20,25,0.9) 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(13, 13, 18, 0.95) 100%);
   pointer-events: none;
 }
 
-/* --- Floating Role Badge --- */
-.project-role-badge {
+/* --- Role Badge --- */
+.premium-role-badge {
   position: absolute;
   top: 16px;
   left: 16px;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #e2e8f0;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 30px;
-  letter-spacing: 0.5px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid #52525b;
+  /* ขอบสว่างขึ้นนิดนึง */
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   z-index: 2;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* --- Play Video Button --- */
-.play-overlay {
+/* --- Play Button --- */
+.premium-play-btn {
   position: absolute;
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(13, 13, 18, 0.7);
+  border: 1px solid #71717a;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   z-index: 2;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.premium-play-btn:hover {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.2);
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
 }
 
 .play-icon {
-  color: white;
-  font-size: 20px;
-  margin-left: 4px; /* ปรับให้สามเหลี่ยมดูอยู่ตรงกลางพอดี */
+  color: #ffffff;
+  font-size: 18px;
+  margin-left: 4px;
 }
 
-/* --- Content Typography --- */
-.project-content {
-  padding: 0 24px 24px 24px;
+/* --- Text Info --- */
+.project-info {
+  padding: 24px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  position: relative;
-  z-index: 1;
-  margin-top: -10px; /* ดึงเนื้อหาให้ซ้อนกับเงาของรูปนิดหน่อย */
 }
 
 .project-title {
-  font-size: 1.2rem;
+  font-size: 20px;
   font-weight: 700;
-  color: #f8fafc;
+  color: #ffffff;
   margin: 0 0 12px 0;
   line-height: 1.4;
+  letter-spacing: -0.5px;
 }
 
 .project-desc {
-  color: #94a3b8;
-  font-size: 0.95rem;
+  color: #d4d4d8;
+  /* สว่างขึ้นกว่าเดิม อ่านง่ายขึ้นมาก */
+  font-size: 14px;
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -184,7 +235,7 @@
   flex-grow: 1;
 }
 
-/* --- Modern Tags --- */
+/* --- Tags --- */
 .project-tags {
   display: flex;
   flex-wrap: wrap;
@@ -192,64 +243,47 @@
   margin-top: auto;
 }
 
-.grand-tag {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #cbd5e1;
-  font-size: 0.8rem;
+.premium-tag {
+  background: rgba(255, 255, 255, 0.08);
+  /* พื้นแท็กสว่างขึ้น */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e4e4e7;
+  font-size: 12px;
+  font-weight: 600;
   padding: 6px 12px;
-  border-radius: 8px;
-  transition: all 0.3s;
+  border-radius: 4px;
+  transition: all 0.2s ease;
 }
 
-.grand-project-card:hover .grand-tag {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.2);
+.premium-card-wrapper:hover .premium-tag {
+  /* แท็กมีประกายสีม่วง/ฟ้าตอน Hover การ์ด */
+  border-color: rgba(168, 85, 247, 0.5);
+  color: #ffffff;
+  background: rgba(168, 85, 247, 0.15);
 }
 
 /* =========================================
-   Mobile Optimization
+   RESPONSIVE
 ========================================= */
 @media (max-width: 768px) {
-  .grand-section-container {
-    padding: 40px 16px;
+  .premium-projects-container {
+    padding: 80px 16px;
   }
 
-  .grand-header {
-    margin-bottom: 30px;
+  .premium-title {
+    font-size: 32px !important;
   }
 
-  .section-text {
-    font-size: 1rem !important;
-  }
-
-  .project-thumb {
-    aspect-ratio: 16 / 11; /* เพิ่มความสูงรูปนิดหน่อยบนมือถือ */
-  }
-
-  .project-content {
-    padding: 0 20px 20px 20px;
+  .project-info {
+    padding: 20px;
   }
 
   .project-title {
-    font-size: 1.1rem;
+    font-size: 18px;
   }
 
   .project-desc {
-    font-size: 0.9rem;
-    -webkit-line-clamp: 4; /* บนมือถือให้อ่านได้ยาวขึ้นนิดนึงก่อนตัดคำ */
-  }
-
-  .project-role-badge {
-    font-size: 0.7rem;
-    padding: 4px 10px;
-    top: 12px;
-    left: 12px;
-  }
-
-  .play-overlay {
-    width: 54px;
-    height: 54px;
+    font-size: 13px;
+    -webkit-line-clamp: 4;
   }
 }

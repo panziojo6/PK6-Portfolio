@@ -1,286 +1,273 @@
-/* =========== CONTAINER =========== */
-
-.skills-grand-container {
+/* =========== CONTAINER & BG =========== */
+.premium-container {
   position: relative;
-  padding: 100px 0;
+  padding: 120px 0;
   width: 90%;
-  max-width: 1350px;
+  max-width: 1300px;
   margin: auto;
   z-index: 1;
+  color: #ededed;
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 
-/* Aurora background layer for this section */
-.skills-aurora-bg {
+.premium-bg-grid {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(168, 85, 247, 0.35) 0%, transparent 60%),
-    radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.35) 0%, transparent 70%);
-  filter: blur(90px);
-  opacity: 0.9;
-  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
   z-index: -1;
-  animation: skillsAuroraMove 18s ease-in-out infinite alternate;
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
 }
 
-@keyframes skillsAuroraMove {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-  100% {
-    transform: translateY(-40px) scale(1.12);
-  }
-}
-
-/* =========== SECTION TITLE =========== */
-
-.grand-title {
+/* =========== HEADER (METALLIC TEXT) =========== */
+.premium-header-section {
   text-align: center;
-  font-size: 38px !important;
-  font-weight: 800;
+  margin-bottom: 60px;
+}
+
+.premium-title {
+  font-size: 42px !important;
+  font-weight: 900;
+  letter-spacing: -1px;
   margin-bottom: 16px;
-  background: linear-gradient(90deg, #a855f7, #38bdf8);
+  /* เอฟเฟกต์ตัวหนังสือโลหะ (Metallic) */
+  background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 50%, #52525b 100%);
   -webkit-background-clip: text;
   color: transparent !important;
 }
 
-.grand-text {
-  text-align: center;
-  max-width: 750px;
-  margin: 0 auto 45px auto;
-  opacity: 0.8;
+.premium-text {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #a1a1aa;
   font-size: 17px;
+  line-height: 1.6;
 }
 
-/* =========== CATEGORY CARDS (LEFT) =========== */
+/* =========== CATEGORY CARDS (LASER BORDER) =========== */
+.category-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 
-.grand-card {
-  background: rgba(255, 255, 255, 0.06);
-  padding: 28px;
-  border-radius: 18px;
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow:
-    0 0 35px rgba(147, 51, 234, 0.12),
-    0 0 90px rgba(94, 234, 212, 0.07);
-  margin-bottom: 28px;
-  transition: 0.35s ease;
+.premium-card-wrapper {
   position: relative;
+  border-radius: 12px;
+  padding: 2px;
+  /* ขนาดของเส้นขอบ */
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* optional extra hook class */
-.enhanced-card {
+.premium-card-wrapper:hover {
+  transform: translateY(-5px);
 }
 
-/* Aurora glow inside card */
-.grand-card::before {
-  content: "";
+/* แสงวิ่งวนรอบการ์ด */
+.card-laser-border {
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% -10%, #a855f766 0%, transparent 70%),
-    radial-gradient(circle at 120% 120%, #38bdf855 0%, transparent 80%);
-  opacity: 0.6;
-  z-index: -1;
-}
-
-/* Light sweep border on hover */
-.grand-card::after {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(168, 85, 247, 0.7) 50%,
-    transparent 100%
-  );
-  filter: blur(18px);
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg,
+      transparent 0%,
+      transparent 75%,
+      rgba(168, 85, 247, 1) 90%,
+      /* สีม่วง */
+      rgba(56, 189, 248, 1) 100%
+      /* สีฟ้า */
+    );
+  animation: spinCard 4s linear infinite;
   opacity: 0;
   transition: opacity 0.4s ease;
 }
 
-.grand-card:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 0 45px rgba(147, 51, 234, 0.25),
-    0 0 110px rgba(94, 234, 212, 0.18);
+.premium-card-wrapper:hover .card-laser-border {
+  opacity: 1;
+  /* แสดงแสงวิ่งเฉพาะตอน Hover */
 }
 
-.grand-card:hover::after {
-  opacity: 0.6;
-  animation: cardBorderSweep 1.6s linear infinite;
-}
-
-@keyframes cardBorderSweep {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100%);
+@keyframes spinCard {
+  100% {
+    transform: rotate(360deg);
   }
 }
 
-/* Achievements text */
-.grand-card h3.grand-cat-title {
+/* เนื้อหาด้านในการ์ด (ทับแสงวิ่งไว้) */
+.premium-card-content {
+  position: relative;
+  background: #09090b;
+  /* สีพื้นการ์ดดำสนิท */
+  border-radius: 10px;
+  padding: 28px 32px;
+  height: 100%;
+  z-index: 1;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.glow-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.premium-cat-title {
   font-size: 22px;
   font-weight: 700;
-  margin-bottom: 12px;
+  color: #ffffff;
+  margin: 0;
 }
 
-.achievement-list {
+.premium-achievement-list {
   list-style: none;
   padding: 0;
-  margin-top: 10px;
+  margin: 0;
 }
 
-.achievement-list li {
-  margin-bottom: 10px;
+.premium-achievement-list li {
+  margin-bottom: 12px;
   font-size: 15px;
-  opacity: 0.9;
+  color: #d4d4d8;
   position: relative;
   padding-left: 20px;
+  line-height: 1.6;
 }
 
-.achievement-list li::before {
-  content: "◆";
+.premium-achievement-list li::before {
+  content: "▹";
   position: absolute;
   left: 0;
   color: #a855f7;
-  font-size: 12px;
-  opacity: 0.8;
+  font-size: 16px;
+  font-weight: bold;
 }
 
-/* =========== METRICS PANEL (RIGHT) =========== */
-
-.metrics-panel {
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(14px);
-  border-radius: 20px;
-  padding: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+/* =========== METRICS PANEL =========== */
+.metrics-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
-  box-shadow:
-    0 0 40px rgba(168, 85, 247, 0.12),
-    0 0 90px rgba(14, 165, 233, 0.1);
+  gap: 20px;
+  height: 100%;
 }
 
-.metric-box {
-  text-align: center;
-  padding: 18px 0;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  transition: 0.35s ease;
-  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.05);
-}
-
-.metric-box:hover {
-  transform: scale(1.05);
-  box-shadow:
-    0 0 25px rgba(168, 85, 247, 0.25),
-    0 0 60px rgba(14, 165, 233, 0.15);
-}
-
-.metric-value {
-  font-size: 34px;
-  font-weight: 900;
-  background: linear-gradient(90deg, #a855f7, #38bdf8);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.metric-label {
-  margin-top: 6px;
-  opacity: 0.8;
-  font-size: 14px;
-}
-
-/* =========== TECH STACK GRID =========== */
-
-.tech-grid {
-  margin-top: 55px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 16px;
-}
-
-/* Single definition for tech-item (centered text) */
-.tech-item {
-  padding: 14px 0;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  font-size: 14px;
-  font-weight: 500;
-  opacity: 0.9;
-  transition: 0.35s ease;
-  cursor: default;
+.premium-metric-box {
   position: relative;
-  overflow: hidden;
-
-  /* center text perfectly */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  padding: 30px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #18181b 0%, #09090b 100%);
+  border: 1px solid #27272a;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.tech-item::before {
-  content: "";
+/* แสงสะท้อนจากด้านล่าง */
+.metric-glow {
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% -20%, #a855f766 0%, transparent 60%),
-    radial-gradient(circle at 120% 140%, #38bdf866 0%, transparent 70%);
-  opacity: 0.35;
-  z-index: -1;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 20px;
+  background: #38bdf8;
+  filter: blur(25px);
+  opacity: 0;
   transition: opacity 0.4s ease;
 }
 
-.tech-item:hover {
-  opacity: 1;
-  transform: translateY(-4px);
-  background: rgba(168, 85, 247, 0.18);
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow:
-    0 0 30px rgba(168, 85, 247, 0.25),
-    0 0 50px rgba(34, 211, 238, 0.15);
+.premium-metric-box:hover {
+  border-color: #3f3f46;
+  transform: scale(1.02);
 }
 
-.tech-item:hover::before {
-  opacity: 0.55;
+.premium-metric-box:hover .metric-glow {
+  opacity: 0.4;
 }
 
-/* floating effect hook (JS animation alreadyทำใน framer-motion) */
-.floating-tech {
-}
-
-/* Gradient text for tech label */
-.tech-label {
-  background: linear-gradient(90deg, #a855f7, #38bdf8);
+.premium-metric-value {
+  font-size: 40px;
+  font-weight: 900;
+  background: linear-gradient(90deg, #ffffff, #d4d4d8);
   -webkit-background-clip: text;
   color: transparent;
-  font-weight: 700;
-  margin: 0;
-  padding: 0;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.premium-metric-label {
+  color: #a1a1aa;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
+
+/* =========== TECH STACK GRID =========== */
+.premium-tech-grid {
+  margin-top: 70px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.premium-tech-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.01);
+  color: #a1a1aa;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+}
+
+.premium-tech-item:hover {
+  color: #ffffff;
+  background: rgba(168, 85, 247, 0.1);
+  border-color: rgba(168, 85, 247, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(168, 85, 247, 0.15);
+}
+
+.tech-icon {
+  font-size: 18px;
+  filter: grayscale(100%) opacity(0.7);
+  transition: all 0.3s ease;
+}
+
+.premium-tech-item:hover .tech-icon {
+  filter: grayscale(0%) opacity(1);
+  transform: scale(1.1);
 }
 
 /* =========== RESPONSIVE =========== */
-
 @media (max-width: 768px) {
-  .grand-title {
-    font-size: 30px !important;
+  .premium-title {
+    font-size: 32px !important;
   }
 
-  .metrics-panel {
-    grid-template-columns: 1fr;
-  }
-
-  .skills-grand-container {
-    padding: 70px 0;
+  .metrics-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }

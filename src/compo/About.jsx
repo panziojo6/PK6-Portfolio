@@ -1,27 +1,13 @@
 import { Typography, Row, Col } from "antd";
 import { motion } from "framer-motion";
-import {
-  UserOutlined,
-  EnvironmentOutlined,
-  CodeOutlined,
-  BulbOutlined,
-  RocketOutlined,
-} from "@ant-design/icons";
+import { aboutInfo } from "../data/aboutData";
 
 const { Title, Paragraph, Text } = Typography;
 
 export default function About() {
-  const info = [
-    { icon: <UserOutlined />, label: "Name", value: "PUNNAWIT KOTOSRI" },
-    { icon: <EnvironmentOutlined />, label: "Location", value: "Bangkok, Thailand" },
-    { icon: <CodeOutlined />, label: "Role", value: "Machine Learning Engineer / Full-Stack / Geospatial Developer" },
-    { icon: <BulbOutlined />, label: "Focus", value: " Machine Learning · GIS · Remote Sensing · GNSS · Math Model · Cloud Computing" },
-    { icon: <RocketOutlined />, label: "Interests", value: "Remote Sensing, GNSS, Data Pipelines" },
-  ];
 
   return (
     <div className="section-inner">
-
       {/* TEXT LEFT */}
       <Row gutter={48} align="middle">
         <Col xs={24} md={14}>
@@ -35,17 +21,26 @@ export default function About() {
               About Me
             </Title>
 
-            <Paragraph className="section-text">
-              I&apos;m an Engineer with a strong focus on geospatial intelligence satellite analytics
-              and machine learning. I specialize in transforming large-scale spatial datasets—such 
-              as Sentinel-2 imagery time series, and GNSS data—into predictive models intelligent 
-              decision systems and actionable insights.
+            <Paragraph
+              className="section-text"
+              style={{ fontSize: "1.1rem", lineHeight: 1.8 }}
+            >
+              I engineer systems that decode the physical world. With a strong
+              focus on geospatial intelligence and machine learning, I transform
+              large-scale spatial datasets—from Sentinel-2 imagery to
+              high-precision GNSS—into predictive models and actionable
+              insights.
             </Paragraph>
 
-            <Paragraph className="section-text">
-              My work combines Python, statistical modeling, and cloud-native data pipelines with advanced geospatial methods 
-              enabling robust analysis of agricultural environmental and location-based phenomena. I build end-to-end systems: 
-              from data ingestion and feature engineering to modeling evaluation and interactive visualization.
+            <Paragraph
+              className="section-text"
+              style={{ fontSize: "1.1rem", lineHeight: 1.8 }}
+            >
+              Fusing Python, cloud-native pipelines, and advanced statistical
+              modeling, I architect end-to-end solutions. From raw data
+              ingestion and feature engineering to interactive visualization, my
+              work empowers robust analysis of agricultural and environmental
+              phenomena.
             </Paragraph>
           </motion.div>
         </Col>
@@ -61,7 +56,7 @@ export default function About() {
           >
             <div className="about-aurora"></div>
 
-            {info.map((item, i) => (
+            {aboutInfo.map((item, i) => (
               <motion.div
                 key={i}
                 className="about-item"
