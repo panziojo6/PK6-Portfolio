@@ -1,118 +1,255 @@
+/* =========================================
+   Grand Section Layout
+========================================= */
+.grand-section-container {
+  padding: 60px 20px;
+  background-color: #08080c; /* พื้นหลังสีเข้มช่วยให้ Glow ชัดขึ้น */
+  color: #fff;
+}
+
+.section-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* --- Header --- */
+.grand-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title {
+  color: #ffffff !important;
+  font-size: clamp(2rem, 5vw, 3rem) !important;
+  font-weight: 800 !important;
+  margin-bottom: 16px !important;
+  letter-spacing: -0.5px;
+}
+
+.section-title span {
+  background: linear-gradient(90deg, #a855f7, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-text {
+  color: #a1a1aa !important;
+  font-size: 1.1rem !important;
+  max-width: 800px;
+  margin: 0 auto !important;
+  line-height: 1.6 !important;
+}
+
+/* =========================================
+   Grand Project Card (Premium Glassmorphism)
+========================================= */
 .grand-project-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 18px;
+  background: rgba(20, 20, 25, 0.4);
+  border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  transition: 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
-  box-shadow: 0 0 40px rgba(147, 51, 234, 0.15),
-    0 0 90px rgba(94, 234, 212, 0.07);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2),
+              0 0 40px rgba(147, 51, 234, 0.08),
+              0 0 80px rgba(56, 189, 248, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .grand-project-card:hover {
-  box-shadow: 0 0 60px rgba(147, 51, 234, 0.35),
-    0 0 120px rgba(94, 234, 212, 0.22);
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+              0 0 60px rgba(147, 51, 234, 0.25),
+              0 0 100px rgba(56, 189, 248, 0.15);
 }
 
-
+/* Inner Glow Effect */
 .grand-project-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 20% -10%, #a855f766 0%, transparent 65%),
-    radial-gradient(circle at 120% 120%, #38bdf866 0%, transparent 80%);
-  opacity: 0.5;
-  z-index: -1;
+  background: radial-gradient(circle at 0% 0%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* THUMBNAIL */
+/* --- Thumbnail & Media --- */
 .project-thumb {
   position: relative;
   width: 100%;
-  height: 240px;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
+  z-index: 1;
 }
 
 .thumb-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: 0.4s ease;
+  transition: transform 0.7s ease, filter 0.4s ease;
 }
 
 .grand-project-card:hover .thumb-img {
-  transform: scale(1.12);
-  filter: brightness(1.1);
+  transform: scale(1.08);
+  filter: brightness(1.05);
 }
 
-/* PLAY OVERLAY (for video) */
+.thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(20,20,25,0.9) 100%);
+  pointer-events: none;
+}
+
+/* --- Floating Role Badge --- */
+.project-role-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 30px;
+  letter-spacing: 0.5px;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Play Video Button --- */
 .play-overlay {
   position: absolute;
-  width: 70px;
-  height: 70px;
+  width: 64px;
+  height: 64px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 50%;
-  font-size: 28px;
-  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.25s;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
-.play-overlay:hover {
-  background: rgba(255, 255, 255, 0.25);
+.play-icon {
+  color: white;
+  font-size: 20px;
+  margin-left: 4px; /* ปรับให้สามเหลี่ยมดูอยู่ตรงกลางพอดี */
 }
 
-/* CONTENT */
+/* --- Content Typography --- */
 .project-content {
-  padding: 22px 24px;
-}
-
-.project-role {
-  font-size: 13px;
-  opacity: 0.7;
+  padding: 0 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+  z-index: 1;
+  margin-top: -10px; /* ดึงเนื้อหาให้ซ้อนกับเงาของรูปนิดหน่อย */
 }
 
 .project-title {
-  font-size: 20px;
+  font-size: 1.2rem;
   font-weight: 700;
-  margin: 6px 0 10px;
-  color: #fff;
+  color: #f8fafc;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
 }
 
 .project-desc {
-  opacity: 0.85;
-  font-size: 15px;
-  margin-bottom: 14px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 1;
 }
 
-.project-tags .ant-tag {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  padding: 5px 12px;
-  border-radius: 20px;
-}
-
+/* --- Modern Tags --- */
 .project-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 12px;
+  gap: 8px;
+  margin-top: auto;
 }
 
+.grand-tag {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
 
-/* MOBILE */
+.grand-project-card:hover .grand-tag {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* =========================================
+   Mobile Optimization
+========================================= */
 @media (max-width: 768px) {
+  .grand-section-container {
+    padding: 40px 16px;
+  }
+
+  .grand-header {
+    margin-bottom: 30px;
+  }
+
+  .section-text {
+    font-size: 1rem !important;
+  }
+
   .project-thumb {
-    height: 200px;
+    aspect-ratio: 16 / 11; /* เพิ่มความสูงรูปนิดหน่อยบนมือถือ */
+  }
+
+  .project-content {
+    padding: 0 20px 20px 20px;
+  }
+
+  .project-title {
+    font-size: 1.1rem;
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    -webkit-line-clamp: 4; /* บนมือถือให้อ่านได้ยาวขึ้นนิดนึงก่อนตัดคำ */
+  }
+
+  .project-role-badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    top: 12px;
+    left: 12px;
+  }
+
+  .play-overlay {
+    width: 54px;
+    height: 54px;
   }
 }

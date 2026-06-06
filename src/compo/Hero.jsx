@@ -47,7 +47,8 @@ export default function Hero() {
             transition={{ delay: 0.2, duration: 0.8 }}
           >
             <Title level={4} className="hero-subtitle">
-              Machine Learning · Full-Stack Developer · Geospatial Engineer · GNSS · Remote Sensing
+              Machine Learning · Full-Stack Developer · Geospatial Engineer ·
+              GNSS · Remote Sensing
             </Title>
           </motion.div>
 
@@ -74,45 +75,45 @@ export default function Hero() {
               hidden: { opacity: 0 },
               visible: {
                 opacity: 1,
-                transition: { staggerChildren: 0.1 }
-              }
+                transition: { staggerChildren: 0.1 },
+              },
             }}
           >
             {[
-                // AI & ML
-                { c: "geekblue", t: "Deep Learning" },
-                { c: "cyan", t: "Machine Learning" },
-                { c: "lime", t: "Time-Series Modeling" },
+              // AI & ML
+              { c: "geekblue", t: "Deep Learning" },
+              { c: "cyan", t: "Machine Learning" },
+              { c: "lime", t: "Time-Series Modeling" },
 
-                // Geospatial
-                { c: "magenta", t: "Geospatial Intelligence" },
-                { c: "gold", t: "Remote Sensing" },
-                { c: "geekblue", t: "Crop Phenotyping / Agriculture" },
+              // Geospatial
+              { c: "magenta", t: "Geospatial Intelligence" },
+              { c: "gold", t: "Remote Sensing" },
+              { c: "geekblue", t: "Crop Phenotyping / Agriculture" },
 
-                // Satellite & GNSS
-                { c: "orange", t: "Satellite Analytics" },
-                { c: "volcano", t: "GNSS · RTK · NTRIP · PPP" },
+              // Satellite & GNSS
+              { c: "orange", t: "Satellite Analytics" },
+              { c: "volcano", t: "GNSS · RTK · NTRIP · PPP" },
 
-                // Data Engineering
-                { c: "red", t: "Airflow ETL Pipelines" },
-                { c: "cyan", t: "Big Data Processing" },
+              // Data Engineering
+              { c: "red", t: "Airflow ETL Pipelines" },
+              { c: "cyan", t: "Big Data Processing" },
 
-                // Engineering / Dev
-                { c: "blue", t: "JavaScript · React" },
-                { c: "purple", t: "Python · ML Stack" },
-                { c: "lime", t: "Full-Stack Engineering" },
+              // Engineering / Dev
+              { c: "blue", t: "JavaScript · React" },
+              { c: "purple", t: "Python · ML Stack" },
+              { c: "lime", t: "Full-Stack Engineering" },
 
-                // Cloud & Infra
-                { c: "gold", t: "Cloud-Native · Docker" },
-                { c: "green", t: "AWS · GCP · Azure" },
-                { c: "volcano", t: "CI/CD · DevOps" },
-                { c: "red", t: "Kubernetes" }
+              // Cloud & Infra
+              { c: "gold", t: "Cloud-Native · Docker" },
+              { c: "green", t: "AWS · GCP · Azure" },
+              { c: "volcano", t: "CI/CD · DevOps" },
+              { c: "red", t: "Kubernetes" },
             ].map((tag) => (
               <motion.div
                 key={tag.t}
                 variants={{
                   hidden: { opacity: 0, y: 10 },
-                  visible: { opacity: 1, y: 0 }
+                  visible: { opacity: 1, y: 0 },
                 }}
               >
                 <Tag color={tag.c}>{tag.t}</Tag>
@@ -133,7 +134,7 @@ export default function Hero() {
               size="large"
               onClick={() =>
                 document.getElementById("projects")?.scrollIntoView({
-                  behavior: "smooth"
+                  behavior: "smooth",
                 })
               }
             >
@@ -145,7 +146,7 @@ export default function Hero() {
               ghost
               onClick={() =>
                 document.getElementById("contact")?.scrollIntoView({
-                  behavior: "smooth"
+                  behavior: "smooth",
                 })
               }
             >
@@ -164,7 +165,7 @@ export default function Hero() {
               delay: 0.2,
               duration: 0.9,
               type: "spring",
-              stiffness: 80
+              stiffness: 80,
             }}
             whileHover={{ scale: 1.02 }}
           >
@@ -194,24 +195,28 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               variants={{
-                visible: { transition: { staggerChildren: 0.15 } }
+                visible: { transition: { staggerChildren: 0.15 } },
               }}
             >
               {[
                 {
-                  degree: "Bachelor of Engineering",
-                  uni: "Kasetsart University, Bangkok Thailand · April 2024"
+                  degree: "Doctor of Philosophy in field of Space Engineering",
+                  uni: "Moscow State University, Moscow Russia : Russia Government Scholarship ",
                 },
                 {
                   degree: "Master of Engineering",
-                  uni: "Kasetsart University, Bangkok Thailand · Dec 2025 (Expected)"
-                }
+                  uni: "Kasetsart University, Bangkok Thailand · May 2026",
+                },
+                {
+                  degree: "Bachelor of Engineering",
+                  uni: "Kasetsart University, Bangkok Thailand · April 2024",
+                },
               ].map((item, i) => (
                 <motion.div
                   className="edu-item"
                   variants={{
                     hidden: { opacity: 0, x: -20 },
-                    visible: { opacity: 1, x: 0 }
+                    visible: { opacity: 1, x: 0 },
                   }}
                   key={i}
                 >
@@ -225,7 +230,8 @@ export default function Hero() {
             </motion.div>
 
             <Paragraph className="hero-meta">
-              Satellite imagery · GNSS · Machine Learning · Deep Learning · Python
+              Satellite imagery · GNSS · Machine Learning · Deep Learning ·
+              Python
             </Paragraph>
 
             <div className="grand-stats">
@@ -256,7 +262,6 @@ export default function Hero() {
         bodyStyle={{ padding: 0, background: "transparent" }}
         zIndex={2000}
       >
-
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -268,7 +273,7 @@ export default function Hero() {
             style={{
               width: "100%",
               borderRadius: "16px",
-              boxShadow: "0 0 25px rgba(0,0,0,0.35)"
+              boxShadow: "0 0 25px rgba(0,0,0,0.35)",
             }}
           />
         </motion.div>

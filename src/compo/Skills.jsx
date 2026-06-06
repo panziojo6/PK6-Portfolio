@@ -54,53 +54,24 @@ const techStack = [
   { icon: "🧠", name: "Deep Learning" },
   { icon: "🔮", name: "LSTM" },
   { icon: "📈", name: "Time-Series Modeling" },
-  { icon: "🧪", name: "OCSVM" },
-  { icon: "🌲", name: "Random Forest" },
-  { icon: "🔥", name: "XGBoost" },
-  { icon: "🧊", name: "Isolation Forest" },
-  { icon: "⚙️", name: "Gradient Boosting" },
-  { icon: "🎛️", name: "Ensemble Learning" },
-  { icon: "🔍", name: "Unsupervised Learning" },
-  { icon: "🧩", name: "Representation Learning" },
-  { icon: "🧬", name: "CNN Models" },
-  { icon: "📡", name: "Attention Mechanisms" },
-  { icon: "🌀", name: "Autoencoders" },
-
   /* ————————————————
      GEOAI / REMOTE SENSING
   ———————————————— */
   { icon: "🛰️", name: "Sentinel-2" },
-  { icon: "🌾", name: "SAVI / MNDWI" },
   { icon: "📡", name: "InSAR" },
   { icon: "🗺️", name: "Land-Use Classification" },
   { icon: "🌤️", name: "Phenology Modeling" },
   { icon: "🧭", name: "Geospatial Analytics" },
-  { icon: "🌏", name: "RasterIO" },
-  { icon: "🧱", name: "GDAL" },
-  { icon: "📊", name: "QGIS" },
   { icon: "🚜", name: "Crop Classification" },
-  { icon: "🧮", name: "Time-Series Phenotyping" },
+
 
   /* ————————————————
      GNSS / REAL-TIME SYSTEMS
   ———————————————— */
   { icon: "📡", name: "GNSS" },
-  { icon: "🛰️", name: "RTK" },
-  { icon: "🔗", name: "NTRIP" },
-  { icon: "📶", name: "PPP" },
   { icon: "🧭", name: "u-blox ZED-F9P" },
   { icon: "📟", name: "UBX Parsing" },
-  { icon: "🌐", name: "Real-Time Mapping" },
 
-  /* ————————————————
-     BACKEND & DATABASE
-  ———————————————— */
-  { icon: "⚡", name: "FastAPI" },
-  { icon: "🧩", name: "Node.js" },
-  { icon: "🛠️", name: "Express" },
-  { icon: "🗄️", name: "PostGIS" },
-  { icon: "🧱", name: "PostgreSQL" },
-  { icon: "🦆", name: "DuckDB" },
 
   /* ————————————————
      CLOUD / DEVOPS / INFRA
@@ -124,9 +95,7 @@ const techStack = [
   /* ————————————————
      EMBEDDED / IoT
   ———————————————— */
-  { icon: "⚙️", name: "ESP32" },
-  { icon: "🐍", name: "MicroPython" },
-  { icon: "🔌", name: "UART / Serial" },
+  { icon: "⚙️", name: "IOT" },
 
   /* ————————————————
      LANGUAGES
