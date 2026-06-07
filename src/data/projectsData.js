@@ -40,7 +40,7 @@ export const projects = [
       "Real-time GNSS + RTK monitoring with FastAPI backend, NTRIP caster, ESP32 rover, and live geospatial map dashboard.",
     tags: ["GNSS", "FastAPI", "RTK", "WebSocket", "Raspberry Pi"],
     role: "Full-Stack / Systems",
-    image: `${base}img/GNSS.jpeg`,
+    image: `${base}img/IMG_1949.jpeg`,
     video: `${base}video/IMG_9253.MOV`,
   },
   {
