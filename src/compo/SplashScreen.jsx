@@ -39,17 +39,17 @@ export default function SplashScreen({ onComplete }) {
       <motion.div
         initial={{ opacity: 0, letterSpacing: "2px" }}
         animate={{ opacity: [0, 1, 0], letterSpacing: "15px" }}
-        transition={{ duration: 2, ease: "easeInOut" }}
+        transition={{ duration: 4.5, ease: "easeInOut" }}
         style={{
           position: "absolute",
           color: "#fff",
-          fontSize: "1.5rem",
+          fontSize: "2.5rem",
           fontWeight: 900,
           textTransform: "uppercase",
           textShadow: "0 0 10px #00f0ff"
         }}
       >
-        Warp Drive Active
+        Connecting to Earth Observation Network...
       </motion.div>
     </motion.div>
   );
