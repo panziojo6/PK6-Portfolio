@@ -665,6 +665,24 @@ CONTACT SECTION WRAPPER==========================*/
   font-size: 13px;
 }
 
+/* ==========================
+   MOBILE TOUCH EFFECTS
+========================== */
+button, a, .grand-card, .premium-card-wrapper {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active, a.nav-link:active, .bottom-nav-item:active {
+  transform: scale(0.92) !important;
+  transition: transform 0.1s ease !important;
+}
+
+.premium-card-wrapper:active {
+  transform: scale(0.98) !important;
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.3) !important;
+  transition: all 0.1s ease !important;
+}
+
 /* .hero-card {
   transform-style: preserve-3d;
   transition: transform 0.35s ease;

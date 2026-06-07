@@ -57,57 +57,56 @@ export default function Projects() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
+          className="projects-swipe-gallery"
         >
-          <Row gutter={[24, 32]}>
-            {projects.map((p) => (
-              <Col xs={24} sm={12} lg={8} key={p.title}>
-                <motion.div
-                  variants={cardVariants}
-                  className="premium-card-wrapper"
-                  whileHover={{ scale: 1.05, rotateY: 10, rotateX: -10 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  style={{ perspective: 1000 }}
-                >
-                  <div className="card-laser-border"></div>
+          {projects.map((p) => (
+            <div className="project-gallery-item" key={p.title}>
+              <motion.div
+                variants={cardVariants}
+                className="premium-card-wrapper"
+                whileHover={{ scale: 1.05, rotateY: 10, rotateX: -10 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                style={{ perspective: 1000 }}
+              >
+                <div className="card-laser-border"></div>
 
-                  <div className="premium-project-content">
-                    {/* Thumbnail Section */}
-                    <div className="project-thumb">
-                      <img src={p.image} alt={p.title} className="thumb-img" />
-                      <div className="thumb-overlay"></div>
+                <div className="premium-project-content">
+                  {/* Thumbnail Section */}
+                  <div className="project-thumb">
+                    <img src={p.image} alt={p.title} className="thumb-img" />
+                    <div className="thumb-overlay"></div>
 
-                      <span className="premium-role-badge">{p.role}</span>
+                    <span className="premium-role-badge">{p.role}</span>
 
-                      {p.video && (
-                        <motion.div
-                          className="premium-play-btn"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => setVideoSrc(p.video)}
-                        >
-                          <span className="play-icon">▶</span>
-                        </motion.div>
-                      )}
-                    </div>
+                    {p.video && (
+                      <motion.div
+                        className="premium-play-btn"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => setVideoSrc(p.video)}
+                      >
+                        <span className="play-icon">▶</span>
+                      </motion.div>
+                    )}
+                  </div>
 
-                    {/* Content Section */}
-                    <div className="project-info">
-                      <h3 className="project-title">{p.title}</h3>
-                      <p className="project-desc">{p.description}</p>
+                  {/* Content Section */}
+                  <div className="project-info">
+                    <h3 className="project-title">{p.title}</h3>
+                    <p className="project-desc">{p.description}</p>
 
-                      <div className="project-tags">
-                        {p.tags.map((t) => (
-                          <span className="premium-tag" key={t}>
-                            {t}
-                          </span>
-                        ))}
-                      </div>
+                    <div className="project-tags">
+                      {p.tags.map((t) => (
+                        <span className="premium-tag" key={t}>
+                          {t}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                </motion.div>
-              </Col>
-            ))}
-          </Row>
+                </div>
+              </motion.div>
+            </div>
+          ))}
         </motion.div>
 
         <VideoModal

@@ -1,5 +1,5 @@
 import { Typography, Row, Col, Tag, Modal } from "antd";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 import MotionButton from "./MotionButton";
 import { heroTags, educationTimeline } from "../data/heroData";
@@ -25,11 +25,16 @@ function Counter({ to, duration = 2 }) {
 
 export default function Hero() {
   const [open, setOpen] = useState(false);
+  const { scrollY } = useScroll();
+  const yText = useTransform(scrollY, [0, 500], [0, 150]);
+  const opacityText = useTransform(scrollY, [0, 400], [1, 0]);
+  const yCard = useTransform(scrollY, [0, 500], [0, -80]);
 
   return (
     <>
       <Row gutter={48} align="middle">
         <Col xs={24} md={14}>
+          <motion.div style={{ y: yText, opacity: opacityText }}>
           {/* Title */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -125,92 +130,95 @@ export default function Hero() {
               Contact Me
             </MotionButton>
           </motion.div>
+          </motion.div>
         </Col>
 
         {/* RIGHT SIDE */}
         <Col xs={24} md={10} className="hero-right">
-          <motion.div
-            className="hero-card grand-card"
-            initial={{ opacity: 0, scale: 0.85, y: 25 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{
-              delay: 0.2,
-              duration: 0.9,
-              type: "spring",
-              stiffness: 80,
-            }}
-            whileHover={{ scale: 1.02 }}
-          >
-            <div className="aurora-bg"></div>
-
-            {/* Profile */}
+          <motion.div style={{ y: yCard }}>
             <motion.div
-              className="profile-container"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.7 }}
-            >
-              <motion.div 
-                className="profile-glow"
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <img
-                  src={`${base}img/profile.jpeg`}
-                  alt="profile"
-                  className="profile-img grand"
-                  onClick={() => setOpen(true)}
-                  style={{ cursor: "pointer" }}
-                />
-              </motion.div>
-            </motion.div>
-
-            {/* Education */}
-            <motion.div
-              className="edu-timeline"
-              initial="hidden"
-              animate="visible"
-              variants={{
-                visible: { transition: { staggerChildren: 0.15 } },
+              className="hero-card grand-card"
+              initial={{ opacity: 0, scale: 0.85, y: 25 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{
+                delay: 0.2,
+                duration: 0.9,
+                type: "spring",
+                stiffness: 80,
               }}
+              whileHover={{ scale: 1.02 }}
             >
-              {educationTimeline.map((item, i) => (
-                <motion.div
-                  className="edu-item"
-                  variants={{
-                    hidden: { opacity: 0, x: -20 },
-                    visible: { opacity: 1, x: 0 },
-                  }}
-                  key={i}
+              <div className="aurora-bg"></div>
+
+              {/* Profile */}
+              <motion.div
+                className="profile-container"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.7 }}
+              >
+                <motion.div 
+                  className="profile-glow"
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <div className="dot" />
-                  <div className="edu-text">
-                    <div className="edu-degree">{item.degree}</div>
-                    <div className="edu-uni">{item.uni}</div>
-                  </div>
+                  <img
+                    src={`${base}img/profile.jpeg`}
+                    alt="profile"
+                    className="profile-img grand"
+                    onClick={() => setOpen(true)}
+                    style={{ cursor: "pointer" }}
+                  />
                 </motion.div>
-              ))}
+              </motion.div>
+
+              {/* Education */}
+              <motion.div
+                className="edu-timeline"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  visible: { transition: { staggerChildren: 0.15 } },
+                }}
+              >
+                {educationTimeline.map((item, i) => (
+                  <motion.div
+                    className="edu-item"
+                    variants={{
+                      hidden: { opacity: 0, x: -20 },
+                      visible: { opacity: 1, x: 0 },
+                    }}
+                    key={i}
+                  >
+                    <div className="dot" />
+                    <div className="edu-text">
+                      <div className="edu-degree">{item.degree}</div>
+                      <div className="edu-uni">{item.uni}</div>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              <Paragraph className="hero-meta">
+                Satellite imagery · GNSS · Machine Learning · Deep Learning ·
+                Python
+              </Paragraph>
+
+              <div className="grand-stats">
+                <div className="stat-box">
+                  <Counter to={10} />
+                  <span className="stat-label">Geo pipelines</span>
+                </div>
+                <div className="stat-box">
+                  <Counter to={10} />
+                  <span className="stat-label">Projects</span>
+                </div>
+                <div className="stat-box">
+                  <Counter to={3} />
+                  <span className="stat-label">Years of coding</span>
+                </div>
+              </div>
             </motion.div>
-
-            <Paragraph className="hero-meta">
-              Satellite imagery · GNSS · Machine Learning · Deep Learning ·
-              Python
-            </Paragraph>
-
-            <div className="grand-stats">
-              <div className="stat-box">
-                <Counter to={10} />
-                <span className="stat-label">Geo pipelines</span>
-              </div>
-              <div className="stat-box">
-                <Counter to={10} />
-                <span className="stat-label">Projects</span>
-              </div>
-              <div className="stat-box">
-                <Counter to={3} />
-                <span className="stat-label">Years of coding</span>
-              </div>
-            </div>
           </motion.div>
         </Col>
       </Row>
