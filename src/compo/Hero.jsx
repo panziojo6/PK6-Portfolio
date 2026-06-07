@@ -150,7 +150,11 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.7 }}
             >
-              <div className="profile-glow">
+              <motion.div 
+                className="profile-glow"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              >
                 <img
                   src={`${base}img/profile.jpeg`}
                   alt="profile"
@@ -158,7 +162,7 @@ export default function Hero() {
                   onClick={() => setOpen(true)}
                   style={{ cursor: "pointer" }}
                 />
-              </div>
+              </motion.div>
             </motion.div>
 
             {/* Education */}

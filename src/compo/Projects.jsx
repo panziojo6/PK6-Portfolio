@@ -39,11 +39,11 @@ export default function Projects() {
           className="premium-header-section"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
         >
           <Title level={2} className="premium-title">
-            Builds & Experiments
+            Builds <span style={{ color: '#00f0ff' }}>&</span> Experiments
           </Title>
           <Paragraph className="premium-text">
             A curated collection of experimental and production-ready systems
@@ -58,13 +58,16 @@ export default function Projects() {
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
         >
-          <Row gutter={[32, 32]}>
+          <Row gutter={[24, 32]}>
             {projects.map((p) => (
               <Col xs={24} sm={12} lg={8} key={p.title}>
-                {/* ใช้ wrapper แบบเดียวกับหน้า Skills 
-                  เพื่อให้มี Laser Border วิ่งรอบการ์ด 
-                */}
-                <motion.div variants={cardVariants} className="premium-card-wrapper">
+                <motion.div
+                  variants={cardVariants}
+                  className="premium-card-wrapper"
+                  whileHover={{ scale: 1.05, rotateY: 10, rotateX: -10 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  style={{ perspective: 1000 }}
+                >
                   <div className="card-laser-border"></div>
 
                   <div className="premium-project-content">
@@ -87,7 +90,7 @@ export default function Projects() {
                       )}
                     </div>
 
-                    {/* Text & Tags Section */}
+                    {/* Content Section */}
                     <div className="project-info">
                       <h3 className="project-title">{p.title}</h3>
                       <p className="project-desc">{p.description}</p>

@@ -66,37 +66,38 @@ export default function Navbar() {
           <div className="brand-img-ring">
             <img src={`${base}img/profile.jpeg`} alt="PK6" className="brand-img" />
           </div>
-          <span className="nav-logo">PK6</span>
+          <div className="nav-logo">PK6</div>
         </div>
 
         {/* DESKTOP LINKS */}
         <nav className="nav-links desktop">
           {navItems.map((item) => (
-            <a
+            <motion.a
               key={item.id}
               href={`#${item.id}`}
               className={`nav-link ${active === item.id ? "active" : ""}`}
+              whileHover={{ scale: 1.08 }}
             >
               {item.label}
-              {/* Laser Underline for Active Item */}
               {active === item.id && (
                 <motion.div
-                  layoutId="active-nav-laser"
                   className="nav-laser-line"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  layoutId="activeSection"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
-            </a>
+            </motion.a>
           ))}
         </nav>
 
         {/* MOBILE HAMBURGER */}
-        <div
+        <button
           className="hamburger"
           onClick={() => setOpen((prev) => !prev)}
+          aria-label="Toggle menu"
         >
           <div className={`bar ${open ? "open" : ""}`}></div>
-        </div>
+        </button>
       </div>
 
       {/* MOBILE MENU */}
@@ -107,7 +108,6 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
           >
             {navItems.map((item) => (
               <a

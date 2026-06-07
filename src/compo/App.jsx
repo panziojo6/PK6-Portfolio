@@ -5,6 +5,7 @@ import About from './About.jsx';
 import Skills from './Skills.jsx';
 import Projects from './Projects.jsx';
 import Contact from './Contact.jsx';
+import ParticlesBackground from './ParticlesBackground.jsx';
 import '../css/App.css';
 
 const { Content, Footer } = Layout;
@@ -15,17 +16,19 @@ export default function App() {
       theme={{
         algorithm: theme.darkAlgorithm,
         token: {
-          colorBgBase: '#050816',
+          colorBgBase: '#02010a',
+          colorBgLayout: 'transparent',
           colorTextBase: '#f5f5f5',
-          colorPrimary: '#9254de',
-          borderRadius: 8,
+          colorPrimary: '#00f0ff',
+          colorInfo: '#a855f7',
+          borderRadius: 12,
         },
       }}
     >
-      <Layout className="app-layout">
+      <Layout className="app-layout" style={{ background: 'transparent' }}>
+        <ParticlesBackground />
         <div className="floating-orb orb-purple"></div>
         <div className="floating-orb orb-cyan"></div>
-        <div className="grid-bg"></div>
         <HeaderBar />
 
         <Content>
