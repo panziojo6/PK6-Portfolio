@@ -19,7 +19,7 @@ export const projects = [
     image: `${base}img/IMG_1133.jpeg`,
   },
   {
-    title: "IEEE Presentation: Crop Classification via One-Class SVM",
+    title: "International Presentation: Crop Classification via One-Class SVM",
     description:
       "Showcased an agricultural mapping system in Russia. The methodology leverages Sentinel-2 time-series and phenotype-based OCSVM models for large-scale crop identification.",
     tags: ["International Symposium", "Machine Learning"],
