@@ -1,324 +1,323 @@
 /* =========================================
-   CONTAINER & BACKGROUND
+   ARTISTIC PROJECTS GALLERY (3D CAROUSEL)
 ========================================= */
-.premium-projects-container {
+.artistic-projects-container {
   position: relative;
-  padding: 120px 20px;
-  background-color: #050505;
-  /* ขยับจากดำสนิท เป็นดำเหลือบสว่างขึ้นนิดๆ (Off-black) */
-  color: #ededed;
-  font-family: 'Inter', -apple-system, sans-serif;
-  overflow: hidden;
-}
-
-.premium-bg-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 50px 50px;
-  z-index: 0;
-  mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
-}
-
-.section-inner {
-  max-width: 1300px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-/* =========================================
-   HEADER (BRIGHTER METALLIC)
-========================================= */
-.premium-header-section {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.premium-title {
-  font-size: 42px !important;
-  font-weight: 900 !important;
-  letter-spacing: -1px;
-  margin-bottom: 16px !important;
-  /* ปรับเฉดโลหะให้สว่างขึ้น เด้งออกจากพื้นหลัง */
-  background: linear-gradient(135deg, #ffffff 0%, #e4e4e7 60%, #94a3b8 100%);
-  -webkit-background-clip: text;
-  color: transparent !important;
-  text-transform: uppercase;
-}
-
-.premium-text {
-  max-width: 750px;
-  margin: 0 auto !important;
-  color: #d4d4d8 !important;
-  /* เปลี่ยนจากเทาเข้มเป็นเทาสว่าง */
-  font-size: 17px !important;
-  line-height: 1.6 !important;
-}
-
-/* =========================================
-   PROJECT CARD (LASER BORDER EFFECT)
-========================================= */
-.premium-card-wrapper {
-  position: relative;
-  border-radius: 12px;
-  padding: 2px;
-  background: rgba(255, 255, 255, 0.08);
-  /* เพิ่มความสว่างขอบปกติ */
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.premium-card-wrapper:hover {
-  transform: translateY(-6px);
-  /* เพิ่ม Glow สีม่วง/ฟ้าจางๆ รอบการ์ดตอน Hover ให้ดูมีชีวิตชีวา */
-  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.15),
-    0 0 20px rgba(56, 189, 248, 0.1);
-}
-
-.card-laser-border {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(from 0deg,
-      transparent 0%,
-      transparent 70%,
-      rgba(168, 85, 247, 1) 85%,
-      rgba(56, 189, 248, 1) 100%);
-  animation: spinCard 4s linear infinite;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 0;
-}
-
-.premium-card-wrapper:hover .card-laser-border {
-  opacity: 1;
-}
-
-@keyframes spinCard {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* =========================================
-   CARD INNER CONTENT
-========================================= */
-.premium-project-content {
-  position: relative;
-  background: #0d0d12;
-  /* ดำอมน้ำเงินเข้มจัดๆ ทำให้การ์ดดูมีมิติ ไม่ดำบอด */
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  z-index: 1;
+  justify-content: center;
   overflow: hidden;
+  padding: 100px 0;
+  background: transparent;
 }
 
-/* --- Thumbnail --- */
-.project-thumb {
+/* Giant Background Typography */
+.bg-typography {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20vw;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.03);
+  letter-spacing: 2vw;
+  z-index: 1;
+  pointer-events: none;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+  user-select: none;
+}
+
+/* 3D CAROUSEL TRACK */
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border-bottom: 1px solid #27272a;
+  height: 500px;
+  perspective: 1500px;
+  margin-top: 50px;
+}
+
+.carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+}
+
+/* Carousel Buttons */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(10, 15, 30, 0.5);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: #00f0ff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 240, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+.carousel-btn.left {
+  left: 5%;
+}
+
+.carousel-btn.right {
+  right: 5%;
+}
+
+/* Individual Card */
+.carousel-card {
+  position: absolute;
+  width: 350px;
+  height: 450px;
+  background: rgba(5, 8, 15, 0.6);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transition: border 0.3s ease;
+}
+
+.carousel-card.active {
+  border: 1px solid rgba(0, 240, 255, 0.5);
+  box-shadow: 0 0 40px rgba(0, 240, 255, 0.2), inset 0 0 20px rgba(168, 85, 247, 0.2);
+  cursor: default;
+}
+
+/* Aurora Underglow */
+.card-aurora {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, rgba(168, 85, 247, 0.1) 40%, transparent 70%);
+  filter: blur(40px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.premium-project-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
 }
 
 .thumb-img {
   width: 100%;
-  height: 100%;
+  height: 200px;
   object-fit: cover;
-  /* ปลดล็อคสี! ลบ Grayscale ออก ลดแค่ความสว่างปกติลงนิดนึง */
-  filter: brightness(0.85) contrast(1.1);
-  transition: transform 0.5s ease, filter 0.5s ease;
+  border-radius: 16px;
+  transition: all 0.5s ease;
 }
 
-.premium-card-wrapper:hover .thumb-img {
-  transform: scale(1.05);
-  /* ภาพสว่างวาบ สีสดชัดเจนขึ้นตอน Hover */
-  filter: brightness(1.1) contrast(1.1);
+.carousel-card.active .thumb-img {
+  filter: contrast(1.1) saturate(1.2);
 }
 
 .thumb-overlay {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(13, 13, 18, 0.95) 100%);
-  pointer-events: none;
+  inset: 16px;
+  bottom: auto;
+  height: 200px;
+  border-radius: 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
 }
 
-/* --- Role Badge --- */
-.premium-role-badge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  background: rgba(0, 0, 0, 0.85);
-  border: 1px solid #52525b;
-  /* ขอบสว่างขึ้นนิดนึง */
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 6px 12px;
-  border-radius: 4px;
+.project-info-minimal {
+  padding: 24px 8px;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+}
+
+.project-title-art {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
   text-transform: uppercase;
   letter-spacing: 1px;
-  z-index: 2;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-/* --- Play Button --- */
-.premium-play-btn {
+.premium-role-badge {
   position: absolute;
-  width: 60px;
-  height: 60px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(13, 13, 18, 0.7);
-  border: 1px solid #71717a;
-  border-radius: 50%;
+  top: 30px;
+  right: 30px;
+  background: rgba(0, 240, 255, 0.15);
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  backdrop-filter: blur(5px);
+}
+
+/* =========================================
+   FULL SCREEN OVERLAY (Hologram Morph)
+========================================= */
+.full-screen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
   display: flex;
-  justify-content: center;
   align-items: center;
-  cursor: pointer;
-  z-index: 2;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
+  justify-content: center;
+  padding: 40px;
+  background: rgba(2, 1, 10, 0.85); /* Deep void backdrop */
 }
 
-.premium-play-btn:hover {
-  border-color: #38bdf8;
-  background: rgba(56, 189, 248, 0.2);
-  box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
-}
-
-.play-icon {
-  color: #ffffff;
-  font-size: 18px;
-  margin-left: 4px;
-}
-
-/* --- Text Info --- */
-.project-info {
-  padding: 24px;
+.expanded-project-card {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  max-height: 800px;
+  background: rgba(10, 15, 30, 0.7);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  border-radius: 32px;
+  box-shadow: 0 0 80px rgba(0, 240, 255, 0.15), inset 0 0 40px rgba(168, 85, 247, 0.1);
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
 }
 
-.project-title {
+.close-expanded {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
   font-size: 20px;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 12px 0;
-  line-height: 1.4;
-  letter-spacing: -0.5px;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
 }
 
-.project-desc {
-  color: #d4d4d8;
-  /* สว่างขึ้นกว่าเดิม อ่านง่ายขึ้นมาก */
-  font-size: 14px;
-  line-height: 1.6;
+.close-expanded:hover {
+  background: rgba(255, 0, 80, 0.2);
+  border-color: #ff0050;
+  color: #ff0050;
+  transform: scale(1.1);
+}
+
+.expanded-content {
+  display: flex;
+  height: 100%;
+}
+
+.expanded-media-container {
+  flex: 1.5;
+  background: #000;
+  position: relative;
+}
+
+.expanded-video, .expanded-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.expanded-info {
+  flex: 1;
+  padding: 60px 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, rgba(10, 15, 30, 0.9), rgba(5, 8, 15, 0.95));
+}
+
+.expanded-title {
+  font-size: 42px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 8px;
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+}
+
+.expanded-role {
+  color: #00f0ff;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   margin-bottom: 24px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  flex-grow: 1;
 }
 
-/* --- Tags --- */
-.project-tags {
+.expanded-desc {
+  font-size: 16px;
+  color: #a1a1aa;
+  line-height: 1.8;
+  margin-top: 24px;
+}
+
+.expanded-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: auto;
+  padding-top: 32px;
 }
 
-.premium-tag {
-  background: rgba(255, 255, 255, 0.08);
-  /* พื้นแท็กสว่างขึ้น */
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #e4e4e7;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 6px 12px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.premium-card-wrapper:hover .premium-tag {
-  /* แท็กมีประกายสีม่วง/ฟ้าตอน Hover การ์ด */
-  border-color: rgba(168, 85, 247, 0.5);
-  color: #ffffff;
-  background: rgba(168, 85, 247, 0.15);
-}
-
-/* =========================================
-   RESPONSIVE & SWIPE GALLERY
-========================================= */
-
-.projects-swipe-gallery {
-  display: flex;
-  gap: 24px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 24px;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.projects-swipe-gallery::-webkit-scrollbar {
-  display: none;
-}
-
-.project-gallery-item {
-  flex: 0 0 85%;
-  scroll-snap-align: center;
-}
-
-@media (min-width: 768px) {
-  .projects-swipe-gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    overflow-x: visible;
+/* Responsive */
+@media (max-width: 992px) {
+  .expanded-content {
+    flex-direction: column;
   }
-  .project-gallery-item {
-    flex: none;
+  .expanded-media-container {
+    flex: 1;
+  }
+  .expanded-info {
+    flex: 1;
+    padding: 30px 24px;
+  }
+  .expanded-title {
+    font-size: 28px;
   }
   
-  .premium-projects-container {
-    padding: 80px 16px;
+  .carousel-card {
+    width: 280px;
+    height: 380px;
   }
-
-  .premium-title {
-    font-size: 32px !important;
-  }
-
-  .project-info {
-    padding: 20px;
-  }
-
-  .project-title {
-    font-size: 18px;
-  }
-
-  .project-desc {
-    font-size: 13px;
-    -webkit-line-clamp: 4;
-  }
-}
-
-@media (min-width: 1024px) {
-  .projects-swipe-gallery {
-    grid-template-columns: repeat(3, 1fr);
+  .carousel-btn {
+    display: none; /* Hide buttons on mobile, allow swiping theoretically */
   }
 }

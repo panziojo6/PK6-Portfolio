@@ -8,6 +8,7 @@ import Skills from './Skills.jsx';
 import Projects from './Projects.jsx';
 import Contact from './Contact.jsx';
 import ParticlesBackground from './ParticlesBackground.jsx';
+import CosmicEntities from './CosmicEntities.jsx';
 import SplashScreen from './SplashScreen.jsx';
 import '../css/App.css';
 
@@ -42,6 +43,7 @@ export default function App() {
         >
           <Layout className="app-layout" style={{ background: 'transparent' }}>
             <ParticlesBackground />
+            <CosmicEntities />
             <div className="floating-orb orb-purple"></div>
             <div className="floating-orb orb-cyan"></div>
             <HeaderBar />
