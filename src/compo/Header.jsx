@@ -5,6 +5,7 @@ import {
   UserOutlined,
   SettingOutlined,
   AppstoreOutlined,
+  SafetyCertificateOutlined,
   MailOutlined,
 } from "@ant-design/icons";
 import "../css/navbar.css";
@@ -14,6 +15,7 @@ const navItems = [
   { id: "about", label: "About", icon: <UserOutlined /> },
   { id: "skills", label: "Skills", icon: <SettingOutlined /> },
   { id: "projects", label: "Projects", icon: <AppstoreOutlined /> },
+  { id: "certificates", label: "Certificates", icon: <SafetyCertificateOutlined /> },
   { id: "contact", label: "Contact", icon: <MailOutlined /> },
 ];
 

@@ -6,6 +6,7 @@ import Hero from './Hero.jsx';
 import About from './About.jsx';
 import Skills from './Skills.jsx';
 import Projects from './Projects.jsx';
+import Certificates from './Certificates.jsx';
 import Contact from './Contact.jsx';
 import ParticlesBackground from './ParticlesBackground.jsx';
 import CosmicEntities from './CosmicEntities.jsx';
@@ -67,7 +68,11 @@ export default function App() {
                 <Projects />
               </section>
 
-              <section id="contact" className="section section-alt">
+              <section id="certificates" className="section section-alt">
+                <Certificates />
+              </section>
+
+              <section id="contact" className="section">
                 <Contact />
               </section>
             </Content>
