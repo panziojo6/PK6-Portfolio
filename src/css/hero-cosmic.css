@@ -1,0 +1,315 @@
+/* =========================================
+   COSMIC HERO & RUSSIAN SCHOLAR THEME
+========================================= */
+
+.hero-left-content {
+  padding-right: 40px;
+}
+
+/* Russian Scholar Badge */
+.scholar-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(10, 15, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 8px 16px;
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.scholar-icon {
+  font-size: 20px;
+  filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+}
+
+.scholar-text {
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.scholar-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: badge-sweep 3s ease-in-out infinite;
+}
+
+@keyframes badge-sweep {
+  0% { left: -100%; }
+  50%, 100% { left: 200%; }
+}
+
+/* Typography */
+.hero-title-cosmic {
+  font-size: 64px !important;
+  font-weight: 900 !important;
+  color: #fff !important;
+  line-height: 1.1 !important;
+  margin-bottom: 24px !important;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.text-gradient-cosmic {
+  background: linear-gradient(90deg, #00f0ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.3));
+}
+
+.hero-subtitle-cosmic {
+  font-size: 16px;
+  color: #00f0ff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.dot-sep {
+  color: #a855f7;
+  margin: 0 8px;
+}
+
+.hero-text-cosmic {
+  font-size: 18px !important;
+  color: #a1a1aa !important;
+  line-height: 1.8 !important;
+  max-width: 600px;
+  margin-bottom: 32px !important;
+}
+
+/* Tags */
+.hero-tags-cosmic {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.cosmic-tag {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left-width: 3px;
+  padding: 6px 16px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  backdrop-filter: blur(5px);
+}
+
+/* Buttons */
+.hero-actions-cosmic {
+  display: flex;
+  gap: 20px;
+}
+
+.cosmic-btn {
+  position: relative;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.cosmic-btn.primary {
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.cosmic-btn.primary:hover {
+  background: rgba(0, 240, 255, 0.2);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+}
+
+.btn-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.4) 0%, transparent 60%);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cosmic-btn.primary:hover .btn-glow {
+  opacity: 1;
+}
+
+.cosmic-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.cosmic-btn.secondary {
+  background: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.cosmic-btn.secondary:hover {
+  border-color: #a855f7;
+  color: #a855f7;
+  background: rgba(168, 85, 247, 0.1);
+}
+
+/* =========================================
+   RIGHT SIDE HUD (Space Terminal)
+========================================= */
+.hero-card-hud {
+  position: relative;
+  background: rgba(5, 8, 15, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Profile Orbital Rings */
+.profile-hud-container {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.profile-orbit-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(0, 240, 255, 0.3);
+  z-index: 1; /* Keep rings strictly behind image */
+}
+
+.ring-1 { width: 105%; height: 105%; animation: spin 20s linear infinite; }
+.ring-2 { width: 115%; height: 115%; border-color: rgba(168, 85, 247, 0.5); border-style: solid; border-width: 1px 0; animation: spin 25s linear infinite reverse; }
+.ring-3 { width: 125%; height: 125%; border-style: dotted; border-color: rgba(255, 255, 255, 0.2); animation: spin 30s linear infinite; }
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.profile-glow-hud {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 0 0 40px rgba(0, 240, 255, 0.5);
+}
+
+.profile-img-hud {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(0, 240, 255, 0.8); /* Clean, premium cyan border */
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.profile-img-hud:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* Education Timeline HUD */
+.edu-timeline-hud {
+  width: 100%;
+  margin-bottom: 30px;
+  border-left: 1px solid rgba(0, 240, 255, 0.3);
+  padding-left: 20px;
+}
+
+.edu-item-hud {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.hud-dot {
+  position: absolute;
+  left: -25px;
+  top: 5px;
+  width: 9px;
+  height: 9px;
+  background: #a855f7;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #a855f7;
+}
+
+.edu-degree-hud {
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.edu-uni-hud {
+  color: #a1a1aa;
+  font-size: 13px;
+}
+
+/* Stats */
+.grand-stats-hud {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 24px;
+}
+
+.stat-box-hud {
+  text-align: center;
+}
+
+.hero-stat-number {
+  display: block;
+  font-size: 28px;
+  font-weight: 900;
+  color: #00f0ff;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  margin-bottom: 4px;
+}
+
+.stat-label-hud {
+  font-size: 10px;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title-cosmic { font-size: 42px !important; }
+  .hero-subtitle-cosmic { font-size: 12px; }
+  .hero-left-content { padding-right: 0; margin-bottom: 40px; }
+  .hero-actions-cosmic { flex-direction: column; }
+  .profile-hud-container { width: 180px; height: 180px; }
+  .profile-glow-hud { width: 120px; height: 120px; }
+}
