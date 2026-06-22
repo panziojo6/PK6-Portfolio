@@ -1,134 +1,107 @@
-/* =========== CONTAINER & BG =========== */
-.premium-container {
+/* =========================================
+   GNSS COMMAND CENTER THEME
+========================================= */
+
+.gnss-command-center {
   position: relative;
-  padding: 120px 0;
-  width: 90%;
-  max-width: 1300px;
-  margin: auto;
-  z-index: 1;
-  color: #ededed;
-  font-family: 'Inter', -apple-system, sans-serif;
+  min-height: 100vh;
+  padding: 100px 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: transparent;
 }
 
-.premium-bg-grid {
+/* Background Map */
+.topo-bg {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(168, 85, 247, 0.04) 1px, transparent 1px);
-  background-size: 50px 50px;
-  z-index: -1;
-  mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 60%),
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 50px 50px, 50px 50px;
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* =========== HEADER (METALLIC TEXT) =========== */
-.premium-header-section {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.premium-title {
-  font-size: 42px !important;
-  font-weight: 900;
-  letter-spacing: -1px;
-  margin-bottom: 16px;
-  /* เอฟเฟกต์ตัวหนังสือโลหะ (Metallic) */
-  background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 50%, #52525b 100%);
-  -webkit-background-clip: text;
-  color: transparent !important;
-}
-
-.premium-text {
-  max-width: 700px;
+.gnss-content-wrapper {
+  position: relative;
+  z-index: 10;
+  max-width: 1400px;
   margin: 0 auto;
-  color: #a1a1aa;
-  font-size: 17px;
-  line-height: 1.6;
+  width: 100%;
+  padding: 0 20px;
 }
 
-/* =========== CATEGORY CARDS (LASER BORDER) =========== */
+/* =========================================
+   1. HOLOGRAPHIC DATA PANELS (Categories)
+========================================= */
 .category-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
 }
 
-.premium-card-wrapper {
+.holo-panel-wrapper {
   position: relative;
-  border-radius: 12px;
-  padding: 2px;
-  /* ขนาดของเส้นขอบ */
+  width: 100%;
+  background: rgba(5, 10, 20, 0.7);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 16px;
+  backdrop-filter: blur(15px);
+  padding: 32px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 240, 255, 0.05);
+  transition: border 0.3s ease;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.02);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.premium-card-wrapper:hover {
-  transform: translateY(-5px);
+.holo-panel-wrapper:hover {
+  border-color: rgba(0, 240, 255, 0.6);
+  box-shadow: 0 10px 40px rgba(0, 240, 255, 0.2), inset 0 0 30px rgba(0, 240, 255, 0.1);
 }
 
-/* แสงวิ่งวนรอบการ์ด */
-.card-laser-border {
+.holo-bg-grid {
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(from 0deg,
-      transparent 0%,
-      transparent 65%,
-      rgba(0, 240, 255, 1) 85%,
-      /* Cyan */
-      rgba(168, 85, 247, 1) 100%
-      /* Purple */
-    );
-  animation: spinCard 4s linear infinite;
+  inset: 0;
+  background-image: linear-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(0, 240, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
   opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: -1;
+  transition: opacity 0.3s ease;
+  z-index: 0;
 }
 
-.premium-card-wrapper:hover .card-laser-border {
-  opacity: 1;
-  /* แสดงแสงวิ่งเฉพาะตอน Hover */
+.holo-panel-wrapper:hover .holo-bg-grid {
+  opacity: 0.5;
 }
 
-@keyframes spinCard {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* เนื้อหาด้านในการ์ด (ทับแสงวิ่งไว้) */
-.premium-card-content {
+.holo-panel-content {
   position: relative;
-  background: rgba(5, 8, 22, 0.95);
-  backdrop-filter: blur(8px);
-  border-radius: 10px;
-  padding: 28px 32px;
-  height: 100%;
   z-index: 1;
 }
 
 .card-header {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
 .glow-dot {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
 }
 
 .premium-cat-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: #ffffff;
+  font-size: 24px;
+  color: #fff;
   margin: 0;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .premium-achievement-list {
@@ -138,138 +111,251 @@
 }
 
 .premium-achievement-list li {
-  margin-bottom: 12px;
+  color: #a1a1aa;
   font-size: 15px;
-  color: #d4d4d8;
-  position: relative;
+  margin-bottom: 12px;
   padding-left: 20px;
-  line-height: 1.6;
+  position: relative;
 }
 
 .premium-achievement-list li::before {
-  content: "▹";
+  content: '>';
   position: absolute;
   left: 0;
-  color: #a855f7;
-  font-size: 16px;
+  color: #00f0ff;
   font-weight: bold;
 }
 
-/* =========== METRICS PANEL =========== */
-.metrics-grid {
+/* =========================================
+   2. GNSS RADAR METRICS
+========================================= */
+.radar-metrics-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  height: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
 }
 
-.premium-metric-box {
+.radar-box {
   position: relative;
+  aspect-ratio: 1;
+  background: rgba(2, 5, 10, 0.8);
+  border-radius: 50%;
+  border: 2px solid rgba(0, 240, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(0, 240, 255, 0.1);
+}
+
+/* Background Radar Grid */
+.radar-box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle, transparent 20%, rgba(0, 240, 255, 0.2) 21%, transparent 22%, transparent 40%, rgba(0, 240, 255, 0.2) 41%, transparent 42%, transparent 60%, rgba(0, 240, 255, 0.2) 61%, transparent 62%),
+    linear-gradient(90deg, transparent 49.5%, rgba(0, 240, 255, 0.4) 50%, transparent 50.5%),
+    linear-gradient(0deg, transparent 49.5%, rgba(0, 240, 255, 0.4) 50%, transparent 50.5%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Sweeping Scanner Animation */
+.radar-scanner {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 0deg, transparent 70%, rgba(0, 240, 255, 0.8) 100%);
+  border-radius: 50%;
+  animation: radar-spin 4s linear infinite;
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+
+@keyframes radar-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.radar-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+.radar-value {
+  font-size: 48px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 15px #00f0ff;
+  line-height: 1;
+}
+
+.radar-label {
+  font-size: 13px;
+  color: #00f0ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+/* =========================================
+   3. ORBITAL SATELLITE TECH STACK
+========================================= */
+.orbital-system-container {
+  position: relative;
+  margin-top: 100px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 30px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, rgba(10, 15, 30, 0.8) 0%, rgba(5, 8, 22, 0.9) 100%);
-  border: 1px solid rgba(0, 240, 255, 0.1);
-  overflow: hidden;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  z-index: 10;
 }
 
-/* แสงสะท้อนจากด้านล่าง */
-.metric-glow {
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  height: 20px;
-  background: #38bdf8;
-  filter: blur(25px);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.premium-metric-box:hover {
-  border-color: #3f3f46;
-  transform: scale(1.02);
-}
-
-.premium-metric-box:hover .metric-glow {
-  opacity: 0.4;
-}
-
-.premium-metric-value {
-  font-size: 40px;
-  font-weight: 900;
-  background: linear-gradient(90deg, #ffffff, #d4d4d8);
-  -webkit-background-clip: text;
-  color: transparent;
-  line-height: 1;
-  margin-bottom: 10px;
-}
-
-.premium-metric-label {
-  color: #a1a1aa;
-  font-size: 14px;
+.orbital-title {
+  color: #a855f7;
+  font-size: 24px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-weight: 600;
+  letter-spacing: 4px;
+  margin-bottom: 60px;
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
 }
 
-/* =========== TECH STACK GRID =========== */
-.premium-tech-grid {
-  margin-top: 70px;
+.orbital-system {
+  position: relative;
+  width: 800px;
+  height: 800px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  transform: perspective(1000px) rotateX(60deg);
+  transform-style: preserve-3d;
+}
+
+/* Core Planet */
+.core-planet {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  z-index: 100;
+  transform: rotateX(-60deg); /* Counter rotate to face camera */
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
-.premium-tech-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 20px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.01);
-  color: #a1a1aa;
-  font-size: 15px;
-  font-weight: 500;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: default;
+.planet-core {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #00f0ff 30%, #002244 80%);
+  box-shadow: inset -10px -10px 20px rgba(0,0,0,0.8), 0 0 40px #00f0ff;
 }
 
-.premium-tech-item:hover {
-  color: #ffffff;
-  background: rgba(168, 85, 247, 0.1);
-  border-color: rgba(168, 85, 247, 0.4);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(168, 85, 247, 0.15);
+.planet-glow {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.4) 0%, transparent 60%);
+  z-index: -1;
+  animation: pulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+
+/* Orbit Rings */
+.orbit-ring {
+  position: absolute;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  transform-style: preserve-3d;
+}
+
+/* Satellites */
+.orbit-satellite-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+}
+
+.orbit-satellite-content {
+  position: absolute;
+  top: -25px; 
+  left: -25px;
+  width: 50px;
+  height: 50px;
+  background: rgba(10, 15, 30, 0.9);
+  border: 1px solid rgba(168, 85, 247, 0.5);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+  backdrop-filter: blur(5px);
+  z-index: 10;
+}
+
+/* Keyframes for each orbit radius */
+@keyframes spin-orbit-150 {
+  from { transform: rotateZ(0deg) translateX(150px) rotateZ(0deg) rotateX(-60deg); }
+  to { transform: rotateZ(360deg) translateX(150px) rotateZ(-360deg) rotateX(-60deg); }
+}
+
+@keyframes spin-orbit-250 {
+  from { transform: rotateZ(0deg) translateX(250px) rotateZ(0deg) rotateX(-60deg); }
+  to { transform: rotateZ(-360deg) translateX(250px) rotateZ(360deg) rotateX(-60deg); } /* Reverse spin for mid ring */
+}
+
+@keyframes spin-orbit-350 {
+  from { transform: rotateZ(0deg) translateX(350px) rotateZ(0deg) rotateX(-60deg); }
+  to { transform: rotateZ(360deg) translateX(350px) rotateZ(-360deg) rotateX(-60deg); }
 }
 
 .tech-icon {
-  font-size: 18px;
-  filter: grayscale(100%) opacity(0.7);
-  transition: all 0.3s ease;
+  font-size: 20px;
 }
 
-.premium-tech-item:hover .tech-icon {
-  filter: grayscale(0%) opacity(1);
-  transform: scale(1.1);
+.tech-name {
+  position: absolute;
+  bottom: -25px;
+  font-size: 11px;
+  color: #fff;
+  white-space: nowrap;
+  background: rgba(0,0,0,0.6);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* =========== RESPONSIVE =========== */
-@media (max-width: 768px) {
-  .premium-title {
-    font-size: 32px !important;
+/* Responsive Scaling for Orbit */
+@media (max-width: 992px) {
+  .orbital-system {
+    transform: perspective(1000px) rotateX(60deg) scale(0.6);
+    margin-top: -100px;
+    margin-bottom: -100px;
   }
+}
 
-  .metrics-grid {
-    grid-template-columns: 1fr 1fr;
+@media (max-width: 576px) {
+  .orbital-system {
+    transform: perspective(1000px) rotateX(60deg) scale(0.4);
+    margin-top: -200px;
+    margin-bottom: -200px;
   }
+  .radar-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .radar-value { font-size: 32px; }
+  .radar-label { font-size: 10px; }
 }
