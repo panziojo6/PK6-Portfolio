@@ -90,24 +90,83 @@
   margin-bottom: 32px !important;
 }
 
-/* Tags */
-.hero-tags-cosmic {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+/* =========================================
+   3D DATA STREAM TAGS
+========================================= */
+.hero-tags-3d-wrapper {
+  position: relative;
+  width: 100%;
   margin-bottom: 40px;
+  overflow: hidden;
+  /* 3D perspective to make it look like a holographic stream */
+  transform: perspective(800px) rotateY(10deg) rotateX(5deg);
+  transform-style: preserve-3d;
+  /* fade edges */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
+.marquee-row {
+  display: flex;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 16px;
+  min-width: max-content;
+}
+
+/* Animations */
+.marquee-left .marquee-content {
+  animation: scroll-left linear infinite;
+}
+
+.marquee-right .marquee-content {
+  animation: scroll-right linear infinite;
+}
+
+.dur-fast { animation-duration: 35s !important; }
+.dur-slow { animation-duration: 45s !important; }
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 8px)); } /* -50% minus half the gap */
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(calc(-50% - 8px)); }
+  100% { transform: translateX(0); }
+}
+
+/* Cosmic Tag Redesign */
 .cosmic-tag {
-  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(10, 15, 30, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-left-width: 3px;
-  padding: 6px 16px;
-  border-radius: 4px;
-  color: #fff;
+  padding: 8px 20px;
+  border-radius: 30px; /* Pill shape */
+  color: #e4e4e7;
   font-size: 13px;
-  font-weight: 500;
-  backdrop-filter: blur(5px);
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 240, 255, 0.05);
+  white-space: nowrap;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.cosmic-tag:hover {
+  border-color: rgba(0, 240, 255, 0.6);
+  transform: scale(1.05);
+}
+
+.tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
 }
 
 /* Buttons */
@@ -176,52 +235,134 @@
 }
 
 /* =========================================
-   RIGHT SIDE HUD (Space Terminal)
+   RIGHT SIDE HUD (Space Terminal 3D)
 ========================================= */
-.hero-card-hud {
-  position: relative;
-  background: rgba(5, 8, 15, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 40px;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02);
+
+.hero-right {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-/* Profile Orbital Rings */
-.profile-hud-container {
+.hero-card-hud {
   position: relative;
-  width: 260px;
-  height: 260px;
+  background: rgba(5, 10, 20, 0.6);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: 24px;
+  padding: 40px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(0, 240, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  cursor: pointer;
+  /* Required for nested 3D transforms */
+  transform-style: preserve-3d;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-card-hud:hover {
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 0 50px rgba(0, 240, 255, 0.15);
+}
+
+.hud-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  border-radius: 24px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* --- 3D Astrolabe --- */
+.profile-astrolabe-container {
+  position: relative;
+  width: 280px;
+  height: 280px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 40px;
+  z-index: 10;
+  transform-style: preserve-3d;
 }
 
-.profile-orbit-ring {
+.astrolabe-ring {
   position: absolute;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  border: 1px dashed rgba(0, 240, 255, 0.3);
-  z-index: 1; /* Keep rings strictly behind image */
+  transform-style: preserve-3d;
+  pointer-events: none;
 }
 
-.ring-1 { width: 105%; height: 105%; animation: spin 20s linear infinite; }
-.ring-2 { width: 115%; height: 115%; border-color: rgba(168, 85, 247, 0.5); border-style: solid; border-width: 1px 0; animation: spin 25s linear infinite reverse; }
-.ring-3 { width: 125%; height: 125%; border-style: dotted; border-color: rgba(255, 255, 255, 0.2); animation: spin 30s linear infinite; }
+/* Ring X: Spun horizontally */
+.ring-x {
+  border: 2px solid rgba(0, 240, 255, 0.2);
+  border-left-color: rgba(0, 240, 255, 0.6);
+  animation: rotate-ring-x 15s linear infinite;
+}
 
-@keyframes spin { 100% { transform: rotate(360deg); } }
+/* Ring Y: Spun vertically */
+.ring-y {
+  border: 1px dashed rgba(168, 85, 247, 0.4);
+  animation: rotate-ring-y 20s linear infinite;
+}
 
+/* Ring Z: Spun diagonally */
+.ring-z {
+  border: 2px dotted rgba(255, 255, 255, 0.3);
+  animation: rotate-ring-z 25s linear infinite reverse;
+}
+
+/* Orbiting dots on rings */
+.orbiter {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #fff;
+  transform: translateX(-50%);
+}
+
+.ring-x .orbiter { background: #00f0ff; box-shadow: 0 0 15px #00f0ff; }
+.ring-y .orbiter { background: #a855f7; box-shadow: 0 0 15px #a855f7; }
+
+@keyframes rotate-ring-x {
+  from { transform: rotateY(0deg) rotateX(60deg) rotateZ(0deg); }
+  to { transform: rotateY(360deg) rotateX(60deg) rotateZ(360deg); }
+}
+
+@keyframes rotate-ring-y {
+  from { transform: rotateX(70deg) rotateY(40deg) rotateZ(0deg); }
+  to { transform: rotateX(70deg) rotateY(40deg) rotateZ(-360deg); }
+}
+
+@keyframes rotate-ring-z {
+  from { transform: rotateX(-50deg) rotateY(-30deg) rotateZ(0deg); }
+  to { transform: rotateX(-50deg) rotateY(-30deg) rotateZ(360deg); }
+}
+
+/* Profile Image inside Astrolabe */
 .profile-glow-hud {
   position: relative;
-  width: 180px;
-  height: 180px;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
-  z-index: 10;
   box-shadow: 0 0 40px rgba(0, 240, 255, 0.5);
+  z-index: 20;
+  /* Counter-rotate if we wanted it to spin, but it just floats up and down */
 }
 
 .profile-img-hud {
@@ -229,38 +370,41 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(0, 240, 255, 0.8); /* Clean, premium cyan border */
+  border: 2px solid rgba(0, 240, 255, 0.8);
   cursor: pointer;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .profile-img-hud:hover {
   transform: scale(1.05);
-  filter: brightness(1.1);
+  filter: brightness(1.2);
 }
 
 /* Education Timeline HUD */
 .edu-timeline-hud {
   width: 100%;
   margin-bottom: 30px;
-  border-left: 1px solid rgba(0, 240, 255, 0.3);
-  padding-left: 20px;
+  border-left: 2px solid rgba(0, 240, 255, 0.2);
+  padding-left: 24px;
+  z-index: 10;
+  position: relative;
 }
 
 .edu-item-hud {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .hud-dot {
   position: absolute;
-  left: -25px;
+  left: -31px;
   top: 5px;
-  width: 9px;
-  height: 9px;
+  width: 12px;
+  height: 12px;
   background: #a855f7;
   border-radius: 50%;
-  box-shadow: 0 0 10px #a855f7;
+  box-shadow: 0 0 15px #a855f7;
+  border: 2px solid #050a14;
 }
 
 .edu-degree-hud {
@@ -268,11 +412,12 @@
   font-weight: 700;
   font-size: 16px;
   margin-bottom: 4px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.2);
 }
 
 .edu-uni-hud {
   color: #a1a1aa;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 /* Stats */
@@ -280,8 +425,10 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px dashed rgba(255, 255, 255, 0.15);
   padding-top: 24px;
+  z-index: 10;
+  position: relative;
 }
 
 .stat-box-hud {
@@ -293,12 +440,12 @@
   font-size: 28px;
   font-weight: 900;
   color: #00f0ff;
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
   margin-bottom: 4px;
 }
 
 .stat-label-hud {
-  font-size: 10px;
+  font-size: 11px;
   color: #a1a1aa;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -310,6 +457,15 @@
   .hero-subtitle-cosmic { font-size: 12px; }
   .hero-left-content { padding-right: 0; margin-bottom: 40px; }
   .hero-actions-cosmic { flex-direction: column; }
-  .profile-hud-container { width: 180px; height: 180px; }
-  .profile-glow-hud { width: 120px; height: 120px; }
+  .profile-astrolabe-container { width: 220px; height: 220px; }
+  .profile-glow-hud { width: 130px; height: 130px; }
+  .hero-card-hud { padding: 30px 20px; }
+  
+  /* Fix Marquee on Mobile */
+  .hero-tags-3d-wrapper {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(0.9);
+    margin-left: -10px;
+    margin-right: -10px;
+    width: calc(100% + 20px);
+  }
 }

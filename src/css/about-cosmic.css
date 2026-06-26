@@ -1,0 +1,194 @@
+/* =========================================
+   ABOUT ME COSMIC SECTION
+========================================= */
+
+.about-cosmic-section {
+  position: relative;
+  padding: 100px 0;
+  overflow: hidden;
+}
+
+.about-cosmic-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 10% 50%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 90% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Typography Left Side */
+.about-title-cosmic {
+  font-size: 48px !important;
+  font-weight: 900 !important;
+  color: #fff !important;
+  margin-bottom: 30px !important;
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+}
+
+.about-title-cosmic .accent {
+  color: #00f0ff;
+  margin-right: 8px;
+}
+
+.about-text-cosmic {
+  font-size: 17px !important;
+  color: #a1a1aa !important;
+  line-height: 1.8 !important;
+  margin-bottom: 24px !important;
+  max-width: 600px;
+}
+
+/* =========================================
+   3D TERMINAL (RIGHT SIDE)
+========================================= */
+
+.about-3d-terminal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: 40px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+/* Glass Background */
+.terminal-glass-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 30, 0.5);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(0, 240, 255, 0.05);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transform: translateZ(0); /* Anchor for 3D */
+}
+
+.about-3d-terminal:hover .terminal-glass-bg {
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 0 50px rgba(0, 240, 255, 0.15);
+}
+
+/* Glowing Corners */
+.terminal-corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #00f0ff;
+  border-radius: 4px;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.about-3d-terminal:hover .terminal-corner {
+  opacity: 1;
+  box-shadow: 0 0 10px #00f0ff;
+}
+
+.t-top-left { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+.t-top-right { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+.t-bottom-left { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+.t-bottom-right { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+/* Terminal Content */
+.terminal-content {
+  position: relative;
+  z-index: 10;
+  transform-style: preserve-3d;
+}
+
+.terminal-header {
+  color: #00f0ff;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.blink-dot {
+  width: 8px;
+  height: 8px;
+  background: #00f0ff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00f0ff;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.terminal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transform-style: preserve-3d;
+}
+
+.terminal-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.3s ease, transform 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.terminal-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.terminal-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #a855f7;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+}
+
+.terminal-text {
+  flex: 1;
+}
+
+.terminal-label {
+  font-size: 12px;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.terminal-value {
+  font-size: 15px;
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-title-cosmic { font-size: 36px !important; }
+  .about-3d-terminal { 
+    padding: 30px 20px; 
+    transform: none !important; /* Disable extreme 3D tilts on mobile */
+  }
+  .terminal-item { gap: 15px; padding: 12px; }
+  .terminal-icon { width: 35px; height: 35px; font-size: 16px; }
+  .terminal-value { font-size: 13px; }
+}

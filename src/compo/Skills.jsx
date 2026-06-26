@@ -25,58 +25,6 @@ const itemVariants = {
   },
 };
 
-// 3D Tilt Panel Component for Categories
-function TiltPanel({ cat }) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 40 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 40 });
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.div
-      variants={itemVariants}
-      className="holo-panel-wrapper"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-    >
-      <div className="holo-bg-grid"></div>
-      <div className="holo-panel-content" style={{ transform: "translateZ(30px)" }}>
-        <div className="card-header">
-          <div className="glow-dot" style={{ backgroundColor: "#00f0ff", boxShadow: `0 0 15px #00f0ff` }}></div>
-          <h3 className="premium-cat-title">{cat.title}</h3>
-        </div>
-        <ul className="premium-achievement-list">
-          {cat.achievements.map((a, i) => (
-            <li key={i}>{a}</li>
-          ))}
-        </ul>
-      </div>
-    </motion.div>
-  );
-}
-
 // Orbiting Tech Stack Logic
 const innerOrbitSize = 6;
 const midOrbitSize = 10;
@@ -114,6 +62,110 @@ const renderOrbit = (items, radius, duration) => {
   );
 };
 
+// Unified 3D Dashboard Component
+function Unified3DDashboard() {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 200, damping: 50 });
+  const mouseYSpring = useSpring(y, { stiffness: 200, damping: 50 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["5deg", "-5deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-5deg", "5deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    x.set(mouseX / width - 0.5);
+    y.set(mouseY / height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      className="gnss-unified-dashboard"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={containerVariants}
+    >
+      {/* SVG Connecting Lines (Circuitry) */}
+      <svg className="dashboard-connections" width="100%" height="100%" style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none", zIndex: 0 }}>
+        <defs>
+          <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#00f0ff" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#a855f7" stopOpacity="0.8" />
+          </linearGradient>
+        </defs>
+        {/* Abstract lines connecting panels to radars */}
+        <path d="M 45% 20% L 55% 25%" stroke="url(#lineGrad)" strokeWidth="2" strokeDasharray="5,5" fill="none" opacity="0.5" />
+        <path d="M 45% 50% L 55% 50%" stroke="url(#lineGrad)" strokeWidth="2" strokeDasharray="5,5" fill="none" opacity="0.5" />
+        <path d="M 45% 80% L 55% 75%" stroke="url(#lineGrad)" strokeWidth="2" strokeDasharray="5,5" fill="none" opacity="0.5" />
+      </svg>
+
+      <Row gutter={[48, 48]} style={{ width: '100%', margin: 0, transformStyle: "preserve-3d" }}>
+        {/* LEFT SIDE — 3D HOLOGRAPHIC PANELS */}
+        <Col xs={24} lg={12} style={{ transformStyle: "preserve-3d" }}>
+          <div className="category-wrapper" style={{ transformStyle: "preserve-3d" }}>
+            {categories.map((cat, i) => (
+              <motion.div 
+                key={cat.title} 
+                className="holo-panel-wrapper" 
+                variants={itemVariants}
+                style={{ transform: `translateZ(${30 + i * 10}px)`, transformStyle: "preserve-3d" }}
+              >
+                <div className="holo-bg-grid"></div>
+                <div className="holo-panel-content" style={{ transform: "translateZ(20px)" }}>
+                  <div className="card-header">
+                    <div className="glow-dot" style={{ backgroundColor: "#00f0ff", boxShadow: `0 0 15px #00f0ff` }}></div>
+                    <h3 className="premium-cat-title">{cat.title}</h3>
+                  </div>
+                  <ul className="premium-achievement-list">
+                    {cat.achievements.map((a, idx) => (
+                      <li key={idx} style={{ transform: `translateZ(${idx * 5}px)` }}>{a}</li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </Col>
+
+        {/* RIGHT SIDE — ISOMETRIC RADAR METRICS */}
+        <Col xs={24} lg={12} style={{ transformStyle: "preserve-3d" }}>
+          <div className="radar-metrics-grid isometric-radars">
+            {metrics.map((m, i) => (
+              <motion.div 
+                key={i} 
+                variants={itemVariants} 
+                className="radar-box-isometric"
+                style={{ transform: `translateZ(${50 + (i % 2) * 20}px)` }}
+              >
+                <div className="radar-base"></div>
+                <div className="radar-scanner"></div>
+                <div className="radar-content-isometric" style={{ transform: "translateZ(40px)" }}>
+                  <div className="radar-value">{m.value}</div>
+                  <div className="radar-label">{m.label}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </Col>
+      </Row>
+    </motion.div>
+  );
+}
+
 export default function Skills() {
   return (
     <div className="gnss-command-center">
@@ -136,44 +188,8 @@ export default function Skills() {
         </Paragraph>
       </motion.div>
 
-      <div className="gnss-content-wrapper">
-        <Row gutter={[48, 48]} style={{ width: '100%', margin: 0 }}>
-          {/* LEFT SIDE — 3D HOLOGRAPHIC PANELS */}
-          <Col xs={24} lg={12}>
-            <motion.div
-              className="category-wrapper"
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              {categories.map((cat) => (
-                <TiltPanel key={cat.title} cat={cat} />
-              ))}
-            </motion.div>
-          </Col>
-
-          {/* RIGHT SIDE — RADAR METRICS */}
-          <Col xs={24} lg={12}>
-            <motion.div
-              className="radar-metrics-grid"
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              {metrics.map((m, i) => (
-                <motion.div key={i} variants={itemVariants} className="radar-box">
-                  <div className="radar-scanner"></div>
-                  <div className="radar-content">
-                    <div className="radar-value">{m.value}</div>
-                    <div className="radar-label">{m.label}</div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </Col>
-        </Row>
+      <div className="gnss-content-wrapper" style={{ perspective: "2000px" }}>
+        <Unified3DDashboard />
       </div>
 
       {/* ORBITING TECH STACK */}
