@@ -26,10 +26,10 @@ function Ring({ ring, items, compact }) {
             <group key={it.name} position={pos}>
               <mesh>
                 <sphereGeometry args={[0.09, 16, 16]} />
-                <meshStandardMaterial color={ring.color} emissive={ring.color} emissiveIntensity={1.2} />
+                <meshStandardMaterial color={it.color || ring.color} emissive={it.color || ring.color} emissiveIntensity={1.2} />
               </mesh>
               <Html center distanceFactor={compact ? 6 : 8.5} zIndexRange={[5, 0]}>
-                <div className="skill-pill" style={{ color: ring.color }}><em>{it.icon}</em>{it.name}</div>
+                <div className="skill-pill" style={{ color: it.color || ring.color }}><em><it.icon size={13} /></em>{it.name}</div>
               </Html>
             </group>
           );

@@ -1,17 +1,48 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { motion, useInView, useMotionValue, useSpring, useScroll, AnimatePresence, useReducedMotion } from "framer-motion";
+import {
+  motion, useInView, useMotionValue, useSpring, useScroll, useTransform, useVelocity, useAnimationFrame, useMotionTemplate,
+  AnimatePresence, useReducedMotion, wrap,
+} from "framer-motion";
+import {
+  LuSun, LuMoon, LuMenu, LuX, LuArrowRight, LuArrowUpRight, LuArrowLeft, LuArrowUp, LuPlay, LuMail, LuCopy, LuLinkedin,
+  LuMove3D, LuCheck, LuExternalLink, LuSatellite, LuRadio, LuGraduationCap, LuRocket, LuMapPin, LuHouse, LuUser,
+  LuFolderOpen, LuSparkles, LuAward, LuSend, LuTerminal, LuMousePointer2, LuCalendar, LuClock, LuGithub, LuDownload,
+} from "react-icons/lu";
 
-/* Scroll reveal wrapper */
+/* ------------------------------------------------------------------ icons */
+/* All UI glyphs come from Lucide (react-icons/lu). Brand glyphs live in skillsData. */
+export const Icon = {
+  Sun: LuSun, Moon: LuMoon, Menu: LuMenu, Close: LuX,
+  Arrow: (p) => <LuArrowRight className="arrow" {...p} />, ArrowUpRight: LuArrowUpRight, ArrowLeft: LuArrowLeft, ArrowUp: LuArrowUp,
+  Play: LuPlay, Mail: LuMail, Copy: LuCopy, Linkedin: LuLinkedin, Github: LuGithub, Drag: LuMove3D, Check: LuCheck, External: LuExternalLink,
+  Satellite: LuSatellite, Radio: LuRadio, Graduation: LuGraduationCap, Rocket: LuRocket, Pin: LuMapPin, Home: LuHouse, User: LuUser,
+  Folder: LuFolderOpen, Sparkles: LuSparkles, Award: LuAward, Send: LuSend, Terminal: LuTerminal, Pointer: LuMousePointer2,
+  Calendar: LuCalendar, Clock: LuClock, Download: LuDownload,
+};
+
+/* ---------------------------------------------------------- device hooks */
+export function useIsTouch() {
+  const [touch, setTouch] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: none), (pointer: coarse)");
+    const u = () => setTouch(mq.matches);
+    u(); mq.addEventListener("change", u);
+    return () => mq.removeEventListener("change", u);
+  }, []);
+  return touch;
+}
+
+/* ------------------------------------------------------------ scroll reveal */
 export function Reveal({ children, delay = 0, y = 28, className, as = "div", once = true, ...rest }) {
   const Comp = motion[as] ?? motion.div;
   const reduce = useReducedMotion();
   return (
     <Comp
       className={className}
-      initial={reduce ? false : { opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, margin: "-80px" }}
-      transition={{ duration: 0.7, delay, ease: [0.2, 0.7, 0.2, 1] }}
+      initial={reduce ? false : { opacity: 0, y, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once, margin: "-60px" }}
+      transition={{ duration: 0.8, delay, ease: [0.2, 0.7, 0.2, 1] }}
       {...rest}
     >
       {children}
@@ -19,14 +50,13 @@ export function Reveal({ children, delay = 0, y = 28, className, as = "div", onc
   );
 }
 
-/* Animated number that counts up when visible. Accepts "12+", "4", "2" */
+/* ----------------------------------------------------- animated counter */
 export function Counter({ value, duration = 1.6 }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const [shown, setShown] = useState(0);
   const target = parseFloat(String(value).replace(/[^\d.]/g, "")) || 0;
   const suffix = String(value).replace(/[\d.]/g, "");
-
   useEffect(() => {
     if (!inView) return;
     let raf;
@@ -40,25 +70,24 @@ export function Counter({ value, duration = 1.6 }) {
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [inView, target, duration]);
-
   return <span ref={ref}>{shown}{suffix}</span>;
 }
 
-/* Button that leans toward the cursor */
+/* -------------------------------------------------------- magnetic wrap */
 export function Magnetic({ children, strength = 0.35, className, ...rest }) {
   const ref = useRef(null);
+  const touch = useIsTouch();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 220, damping: 16 });
   const sy = useSpring(y, { stiffness: 220, damping: 16 });
-
   const onMove = (e) => {
+    if (touch) return;
     const r = ref.current.getBoundingClientRect();
     x.set((e.clientX - (r.left + r.width / 2)) * strength);
     y.set((e.clientY - (r.top + r.height / 2)) * strength);
   };
   const onLeave = () => { x.set(0); y.set(0); };
-
   return (
     <motion.div ref={ref} style={{ x: sx, y: sy, display: "inline-block" }} onMouseMove={onMove} onMouseLeave={onLeave} className={className} {...rest}>
       {children}
@@ -66,15 +95,16 @@ export function Magnetic({ children, strength = 0.35, className, ...rest }) {
   );
 }
 
-/* 3D tilt card with glare that follows the cursor */
+/* --------------------------------------------------- 3D tilt + glare card */
 export function Tilt({ children, max = 10, className, style, ...rest }) {
   const ref = useRef(null);
+  const touch = useIsTouch();
   const rx = useMotionValue(0);
   const ry = useMotionValue(0);
   const srx = useSpring(rx, { stiffness: 200, damping: 20 });
   const sry = useSpring(ry, { stiffness: 200, damping: 20 });
-
   const onMove = (e) => {
+    if (touch) return;
     const el = ref.current;
     const r = el.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width;
@@ -85,44 +115,52 @@ export function Tilt({ children, max = 10, className, style, ...rest }) {
     el.style.setProperty("--gy", `${py * 100}%`);
   };
   const onLeave = () => { rx.set(0); ry.set(0); };
-
   return (
-    <motion.div
-      ref={ref}
-      className={className}
-      style={{ rotateX: srx, rotateY: sry, transformPerspective: 1000, ...style }}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      {...rest}
-    >
+    <motion.div ref={ref} className={className} style={{ rotateX: srx, rotateY: sry, transformPerspective: 1000, ...style }} onMouseMove={onMove} onMouseLeave={onLeave} {...rest}>
       {children}
     </motion.div>
   );
 }
 
-/* Soft light that follows the cursor across the page */
+/* ------------------------------------------- cursor glow + spotlight borders */
+/* One global pointer listener feeds every `.glow` card its --gx/--gy so the border lights up where the cursor is. */
 export function CursorGlow() {
   useEffect(() => {
     const root = document.documentElement;
+    let cards = [];
+    let raf = 0;
+    const collect = () => { cards = Array.from(document.querySelectorAll(".glow")); };
+    collect();
+    const mo = new MutationObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(collect); });
+    mo.observe(document.body, { childList: true, subtree: true });
     const onMove = (e) => {
       root.style.setProperty("--mx", `${e.clientX}px`);
       root.style.setProperty("--my", `${e.clientY}px`);
+      for (const c of cards) {
+        const r = c.getBoundingClientRect();
+        if (e.clientX < r.left - 200 || e.clientX > r.right + 200 || e.clientY < r.top - 200 || e.clientY > r.bottom + 200) continue;
+        c.style.setProperty("--sx", `${e.clientX - r.left}px`);
+        c.style.setProperty("--sy", `${e.clientY - r.top}px`);
+      }
     };
     window.addEventListener("pointermove", onMove, { passive: true });
-    return () => window.removeEventListener("pointermove", onMove);
+    return () => { window.removeEventListener("pointermove", onMove); mo.disconnect(); };
   }, []);
   return <div className="cursor-glow" aria-hidden="true" />;
 }
 
-/* Thin progress bar under the header */
+/* ----------------------------------------------------- header progress */
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.3 });
   return <motion.div className="scroll-progress" style={{ scaleX }} />;
 }
 
+/* ------------------------------------------- back to top w/ progress ring */
 export function BackToTop() {
   const [show, setShow] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const dash = useTransform(scrollYProgress, [0, 1], [0, 1]);
   useEffect(() => {
     const onScroll = () => setShow(window.scrollY > 700);
     onScroll();
@@ -133,34 +171,36 @@ export function BackToTop() {
     <AnimatePresence>
       {show && (
         <motion.button
-          className="to-top"
-          aria-label="Back to top"
-          initial={{ opacity: 0, scale: 0.6, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.6, y: 20 }}
-          whileHover={{ y: -4 }}
+          className="to-top" aria-label="Back to top"
+          initial={{ opacity: 0, scale: 0.6, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.6, y: 20 }}
+          whileHover={{ y: -4 }} whileTap={{ scale: 0.92 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
+          <svg className="ring" viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="21" />
+            <motion.circle cx="24" cy="24" r="21" style={{ pathLength: dash }} />
+          </svg>
+          <LuArrowUp size={20} />
         </motion.button>
       )}
     </AnimatePresence>
   );
 }
 
-/* Tiny toast hook */
+/* ------------------------------------------------------------------ toast */
 export function useToast() {
   const [msg, setMsg] = useState(null);
+  const timer = useRef(0);
   const show = useCallback((m) => {
     setMsg(m);
-    window.clearTimeout(show.t);
-    show.t = window.setTimeout(() => setMsg(null), 2200);
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setMsg(null), 2200);
   }, []);
   const node = (
     <AnimatePresence>
       {msg && (
-        <motion.div className="toast" role="status" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 16 }}>
-          {msg}
+        <motion.div className="toast" role="status" initial={{ opacity: 0, y: 16, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 16, scale: 0.95 }}>
+          <LuCheck size={16} /> {msg}
         </motion.div>
       )}
     </AnimatePresence>
@@ -168,7 +208,7 @@ export function useToast() {
   return [show, node];
 }
 
-/* Rotating typewriter text */
+/* ------------------------------------------------------------ typewriter */
 export function Typewriter({ words, typeSpeed = 55, pause = 1600 }) {
   const [i, setI] = useState(0);
   const [txt, setTxt] = useState("");
@@ -184,21 +224,76 @@ export function Typewriter({ words, typeSpeed = 55, pause = 1600 }) {
   return <span className="type">{txt}<span className="caret" /></span>;
 }
 
-export const Icon = {
-  Sun: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4" /></svg>,
-  Moon: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>,
-  Menu: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>,
-  Close: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>,
-  Arrow: () => <svg className="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>,
-  ArrowUpRight: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M8 7h9v9" /></svg>,
-  Play: () => <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z" /></svg>,
-  Mail: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>,
-  Copy: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15V5a2 2 0 0 1 2-2h10" /></svg>,
-  Linkedin: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" /></svg>,
-  Drag: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20" /></svg>,
-};
+/* --------------------------------------------- scramble-on-hover text */
+const GLYPHS = "!<>-_\\/[]{}—=+*^?#0123456789";
+export function Scramble({ text, as = "span", className, trigger = "hover", ...rest }) {
+  const Comp = as;
+  const [out, setOut] = useState(text);
+  const frame = useRef(0);
+  const run = useCallback(() => {
+    cancelAnimationFrame(frame.current);
+    let step = 0;
+    const total = Math.max(10, text.length * 2);
+    const tick = () => {
+      step++;
+      const progress = step / total;
+      setOut(text.split("").map((ch, idx) => {
+        if (ch === " ") return " ";
+        return idx / text.length < progress ? ch : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+      }).join(""));
+      if (step < total) frame.current = requestAnimationFrame(tick);
+      else setOut(text);
+    };
+    frame.current = requestAnimationFrame(tick);
+  }, [text]);
+  useEffect(() => () => cancelAnimationFrame(frame.current), []);
+  const handlers = trigger === "hover" ? { onMouseEnter: run, onFocus: run } : {};
+  return <Comp className={className} {...handlers} {...rest}><span aria-hidden="true">{out}</span><span className="sr-only">{text}</span></Comp>;
+}
 
-/* Lagging cursor ring + dot (desktop only) */
+/* --------------------------------------- scroll-velocity marquee ticker */
+export function VelocityTicker({ children, baseVelocity = 2, className = "" }) {
+  const baseX = useMotionValue(0);
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const smooth = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
+  const factor = useTransform(smooth, [0, 1000], [0, 5], { clamp: false });
+  const x = useTransform(baseX, (v) => `${wrap(-25, 0, v)}%`);
+  const dir = useRef(1);
+  useAnimationFrame((_, delta) => {
+    let move = dir.current * baseVelocity * (delta / 1000);
+    const f = factor.get();
+    if (f < 0) dir.current = -1; else if (f > 0) dir.current = 1;
+    move += dir.current * move * Math.abs(f);
+    baseX.set(baseX.get() + move);
+  });
+  return (
+    <div className={`ticker ${className}`} aria-hidden="true">
+      <motion.div className="ticker-track" style={{ x }}>
+        {[0, 1, 2, 3].map((k) => <span key={k}>{children}</span>)}
+      </motion.div>
+    </div>
+  );
+}
+
+/* --------------------------------------------- label that follows cursor */
+export function CursorLabel({ text, visible }) {
+  const x = useMotionValue(-200); const y = useMotionValue(-200);
+  const sx = useSpring(x, { stiffness: 400, damping: 30 });
+  const sy = useSpring(y, { stiffness: 400, damping: 30 });
+  useEffect(() => {
+    const move = (e) => { x.set(e.clientX); y.set(e.clientY); };
+    window.addEventListener("pointermove", move, { passive: true });
+    return () => window.removeEventListener("pointermove", move);
+  }, [x, y]);
+  return (
+    <motion.div className="cursor-label" style={{ x: sx, y: sy }} animate={{ scale: visible ? 1 : 0, opacity: visible ? 1 : 0 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+      {text} <LuArrowUpRight size={14} />
+    </motion.div>
+  );
+}
+
+/* --------------------------------------- lagging cursor ring (desktop) */
 export function CursorRing() {
   const x = useMotionValue(-100); const y = useMotionValue(-100);
   const rx = useSpring(x, { stiffness: 300, damping: 28, mass: 0.4 });
@@ -206,7 +301,7 @@ export function CursorRing() {
   const [hot, setHot] = useState(false);
   useEffect(() => {
     const move = (e) => { x.set(e.clientX); y.set(e.clientY); };
-    const over = (e) => setHot(!!e.target.closest("a, button, .pcard, canvas"));
+    const over = (e) => setHot(!!e.target.closest("a, button, .pcard, canvas, .skill-tile"));
     window.addEventListener("pointermove", move, { passive: true });
     window.addEventListener("pointerover", over, { passive: true });
     return () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerover", over); };
@@ -219,27 +314,28 @@ export function CursorRing() {
   );
 }
 
-/* Title whose words slide up one by one */
-export function SplitTitle({ text, className = "section-title", hl = [] }) {
+/* ------------------------------------------------- split-word title */
+export function SplitTitle({ text, className = "section-title", hl = [], as = "h2" }) {
+  const Comp = motion[as] ?? motion.h2;
   const words = text.split(" ");
   return (
-    <motion.h2 className={className} aria-label={text} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+    <Comp className={className} aria-label={text} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
       {words.map((w, i) => (
         <span className="word-in" key={i}>
           <motion.span
             className={hl.includes(w.replace(/[.,!?]/g, "")) ? "hl" : ""}
-            variants={{ hidden: { y: "110%" }, show: { y: 0, transition: { duration: 0.7, delay: i * 0.07, ease: [0.2, 0.8, 0.2, 1] } } }}
+            variants={{ hidden: { y: "110%", rotate: 4 }, show: { y: 0, rotate: 0, transition: { duration: 0.7, delay: i * 0.07, ease: [0.2, 0.8, 0.2, 1] } } }}
           >
             {w}
           </motion.span>
-          {i < words.length - 1 ? "\u00A0" : ""}
+          {i < words.length - 1 ? " " : ""}
         </span>
       ))}
-    </motion.h2>
+    </Comp>
   );
 }
 
-/* Fake terminal that types lines when scrolled into view */
+/* ------------------------------------------------------------ terminal */
 export function Terminal({ lines, title = "pk6 — zsh" }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -250,8 +346,8 @@ export function Terminal({ lines, title = "pk6 — zsh" }) {
     return () => clearTimeout(t);
   }, [inView, n, lines.length]);
   return (
-    <div className="terminal" ref={ref}>
-      <div className="terminal-bar"><i style={{ background: "#ff5f57" }} /><i style={{ background: "#febc2e" }} /><i style={{ background: "#28c840" }} /><span>{title}</span></div>
+    <div className="terminal glow" ref={ref}>
+      <div className="terminal-bar"><i style={{ background: "#ff5f57" }} /><i style={{ background: "#febc2e" }} /><i style={{ background: "#28c840" }} /><span><LuTerminal size={12} /> {title}</span></div>
       <div className="terminal-body">
         {lines.slice(0, n).map((l, i) => (
           <motion.div key={i} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }}>
@@ -264,12 +360,15 @@ export function Terminal({ lines, title = "pk6 — zsh" }) {
   );
 }
 
+/* ------------------------------------------------------------ ID badge */
 export function IdBadge({ src, name, role, id = "PK6-2026" }) {
   const ref = useRef(null);
+  const touch = useIsTouch();
   const rx = useMotionValue(0); const ry = useMotionValue(0);
   const srx = useSpring(rx, { stiffness: 180, damping: 18 });
   const sry = useSpring(ry, { stiffness: 180, damping: 18 });
   const onMove = (e) => {
+    if (touch) return;
     const r = ref.current.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
     ry.set((px - 0.5) * 24); rx.set((0.5 - py) * 24);
@@ -289,8 +388,34 @@ export function IdBadge({ src, name, role, id = "PK6-2026" }) {
       <div className="id-head"><span>Mission ID</span><span>{id}</span></div>
       <div className="id-photo"><img src={src} alt={`Portrait of ${name}`} /></div>
       <div className="id-body"><b>{name}</b><span>{role}</span></div>
-      <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "0 12px 0" }}><div className="id-chip" /><span style={{ fontSize: 10, color: "var(--muted)", letterSpacing: ".12em" }}>GEO · ML · GNSS</span></div>
+      <div className="id-foot"><div className="id-chip" /><span><LuSatellite size={11} /> GEO <LuSparkles size={11} /> ML <LuRadio size={11} /> GNSS</span></div>
       <div className="id-barcode" />
     </motion.div>
   );
+}
+
+/* ----------------------------------------- mouse-parallax layer (hero) */
+export function Parallax({ children, depth = 20, className, style }) {
+  const touch = useIsTouch();
+  const x = useMotionValue(0); const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 60, damping: 20 });
+  const sy = useSpring(y, { stiffness: 60, damping: 20 });
+  useEffect(() => {
+    if (touch) return;
+    const move = (e) => {
+      x.set(((e.clientX / window.innerWidth) - 0.5) * depth);
+      y.set(((e.clientY / window.innerHeight) - 0.5) * depth);
+    };
+    window.addEventListener("pointermove", move, { passive: true });
+    return () => window.removeEventListener("pointermove", move);
+  }, [x, y, depth, touch]);
+  return <motion.div className={className} style={{ x: sx, y: sy, ...style }}>{children}</motion.div>;
+}
+
+/* --------------------------------------------------- gradient border glow */
+export function useGradientSpot(ref) {
+  const x = useMotionValue(0); const y = useMotionValue(0);
+  const bg = useMotionTemplate`radial-gradient(420px circle at ${x}px ${y}px, rgba(255,255,255,0.18), transparent 60%)`;
+  const onMove = (e) => { const r = ref.current.getBoundingClientRect(); x.set(e.clientX - r.left); y.set(e.clientY - r.top); };
+  return { bg, onMove };
 }

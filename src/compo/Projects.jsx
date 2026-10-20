@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { projects } from "../data/projectsData";
-import { Reveal, Tilt, Icon, Magnetic, SplitTitle } from "./ui.jsx";
+import { Reveal, Tilt, Icon, Magnetic, SplitTitle, CursorLabel, useIsTouch } from "./ui.jsx";
+import { LuFolderOpen, LuCalendar, LuClock, LuLayers, LuTag, LuListOrdered } from "react-icons/lu";
 
 const ALL = "All";
 const categories = [ALL, ...Array.from(new Set(projects.map((p) => p.category)))];
@@ -13,8 +14,8 @@ function ProjectModal({ project, onClose }) {
     const onKey = (e) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
+    document.body.style.overflow = "hidden"; window.dispatchEvent(new Event("pk6:lock"));
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; window.dispatchEvent(new Event("pk6:unlock")); };
   }, [project, onClose]);
 
   return (
@@ -27,14 +28,15 @@ function ProjectModal({ project, onClose }) {
             transition={{ type: "spring", stiffness: 260, damping: 26 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <button type="button" className="modal-close" onClick={onClose} aria-label="Close"><Icon.Close /></button>
+            <div className="modal-handle" aria-hidden="true" />
+            <button type="button" className="modal-close" onClick={onClose} aria-label="Close"><Icon.Close size={20} /></button>
             <div className={`modal-media ${project.video ? "has-video" : ""}`}>
               {project.video ? <video src={project.video} poster={project.image} controls playsInline /> : <img src={project.image} alt="" />}
             </div>
             <div className="modal-body">
               <div className="modal-chips">
                 <span className="chip accent">{project.category}</span>
-                <span className="chip">{project.year}</span>
+                <span className="chip"><LuCalendar size={11} /> {project.year}</span>
                 {project.badge && <span className="chip">{project.badge}</span>}
               </div>
               <h2 id="pm-title">{project.title}</h2>
@@ -52,7 +54,8 @@ function ProjectModal({ project, onClose }) {
                   </dl>
                 )}
               </div>
-              {project.episodes?.length > 0 && (
+              {project.episodes?.length > 0 && (<>
+                <h4 className="modal-sub"><LuListOrdered size={16} /> How it was built</h4>
                 <ol className="steps">
                   {project.episodes.map((ep, i) => (
                     <li key={ep.title}>
@@ -65,7 +68,7 @@ function ProjectModal({ project, onClose }) {
                     </li>
                   ))}
                 </ol>
-              )}
+              </>)}
               <div className="modal-tags">{project.tags.map((t) => <span className="tag" key={t}>{t}</span>)}</div>
             </div>
           </motion.div>
@@ -96,7 +99,7 @@ function Spotlight({ items, onOpen }) {
           <div className="spot-text">
             <span className="spot-index">{String(i + 1).padStart(2, "0")}</span>
             <motion.div className="spot-title-tag" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
-              <span className="chip accent">{p.category}</span><span className="chip">{p.year}</span>{p.badge && <span className="chip">{p.badge}</span>}
+              <span className="chip accent">{p.category}</span><span className="chip"><LuCalendar size={11} /> {p.year}</span>{p.badge && <span className="chip">{p.badge}</span>}
             </motion.div>
             <motion.h3 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>{p.title}</motion.h3>
             <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>{p.description}</motion.p>
@@ -106,7 +109,7 @@ function Spotlight({ items, onOpen }) {
               </motion.dl>
             )}
             <motion.div className="spot-actions" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}>
-              <Magnetic><button type="button" className="btn btn-solid" onClick={() => onOpen(p)}>{p.video ? <><Icon.Play /> Watch & read</> : <>Open case study <Icon.Arrow /></>}</button></Magnetic>
+              <Magnetic><button type="button" className="btn btn-solid" onClick={() => onOpen(p)}>{p.video ? <><Icon.Play size={16} /> Watch & read</> : <>Open case study <Icon.Arrow size={18} /></>}</button></Magnetic>
             </motion.div>
           </div>
         </motion.div>
@@ -121,8 +124,8 @@ function Spotlight({ items, onOpen }) {
         </div>
         <span className="spot-counter">{String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}</span>
         <div className="spot-arrows">
-          <button type="button" className="icon-btn" onClick={() => go(-1)} aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M11 5l-7 7 7 7" /></svg></button>
-          <button type="button" className="icon-btn" onClick={() => go(1)} aria-label="Next"><Icon.Arrow /></button>
+          <button type="button" className="icon-btn" onClick={() => go(-1)} aria-label="Previous"><Icon.ArrowLeft size={18} /></button>
+          <button type="button" className="icon-btn" onClick={() => go(1)} aria-label="Next"><Icon.Arrow size={18} /></button>
         </div>
       </div>
     </Reveal>
@@ -131,22 +134,22 @@ function Spotlight({ items, onOpen }) {
 
 function ProjectCard({ p, featured, onOpen }) {
   return (
-    <Tilt className={`pcard`} max={featured ? 5 : 8}>
+    <Tilt className="pcard glow" max={featured ? 5 : 8}>
       <button type="button" onClick={() => onOpen(p)} style={{ all: "unset", display: "flex", flexDirection: "column", height: "100%", cursor: "pointer", width: "100%" }}>
         <div className="pcard-media">
           <img src={p.image} alt="" loading="lazy" />
           <div className="pcard-top">
             <span className="chip accent">{p.category}</span>
-            {p.video && <span className="chip play"><Icon.Play /> Video</span>}
+            {p.video && <span className="chip play"><Icon.Play size={10} /> Video</span>}
           </div>
         </div>
         <div className="pcard-body">
-          <div className="pcard-meta"><span>{p.year}</span><span>{p.duration}</span></div>
+          <div className="pcard-meta"><span><LuCalendar size={12} /> {p.year}</span><span><LuClock size={12} /> {p.duration}</span></div>
           <h3>{featured ? p.title : p.shortTitle || p.title}</h3>
           <p>{p.description}</p>
           <div className="pcard-tags">{p.tags.slice(0, featured ? 6 : 4).map((t) => <span className="tag" key={t}>{t}</span>)}</div>
         </div>
-        <span className="pcard-cta"><Icon.ArrowUpRight /></span>
+        <span className="pcard-cta"><Icon.ArrowUpRight size={18} /></span>
         <div className="pcard-glare" />
       </button>
     </Tilt>
@@ -156,34 +159,38 @@ function ProjectCard({ p, featured, onOpen }) {
 export default function Projects() {
   const [cat, setCat] = useState(ALL);
   const [selected, setSelected] = useState(null);
+  const [hover, setHover] = useState(false);
+  const touch = useIsTouch();
   const list = useMemo(() => (cat === ALL ? projects : projects.filter((p) => p.category === cat)), [cat]);
   const count = (c) => (c === ALL ? projects.length : projects.filter((p) => p.category === c).length);
 
   return (
     <section id="projects" data-section className="section">
+      <span className="section-num" aria-hidden="true">02</span>
+      {!touch && <CursorLabel text="Open" visible={hover && !selected} />}
       <div className="wrap">
         <Reveal className="section-head">
           <div>
-            <span className="eyebrow">Selected work</span>
+            <span className="eyebrow"><LuFolderOpen size={14} /> Selected work</span>
             <SplitTitle text="Projects that ship." hl={["ship"]} />
           </div>
           <p className="section-note">{projects.length} projects across remote sensing, GNSS, robotics and data engineering. Click any card for the full story.</p>
         </Reveal>
 
         <Spotlight items={featured} onOpen={setSelected} />
-        <h3 className="sub-title">All projects</h3>
+        <h3 className="sub-title"><LuLayers size={18} /> All projects</h3>
 
         <Reveal className="filters" delay={0.05}>
           {categories.map((c) => (
             <button key={c} type="button" className={`filter ${cat === c ? "is-active" : ""}`} onClick={() => setCat(c)}>
               {cat === c && <motion.span layoutId="filter-pill" className="pill" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
-              {c}<small>{count(c)}</small>
+              {c === ALL && <LuTag size={13} />}{c}<small>{count(c)}</small>
             </button>
           ))}
         </Reveal>
 
         <LayoutGroup>
-          <motion.ul className="project-grid" layout>
+          <motion.ul className="project-grid" layout onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
             <AnimatePresence mode="popLayout">
               {list.map((p, i) => {
                 const featuredCard = cat === ALL && i === 0;

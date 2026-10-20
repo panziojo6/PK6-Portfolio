@@ -1,22 +1,30 @@
 import { education, profile } from "../data/site";
 import { metrics } from "../data/skillsData";
-import { Reveal, Counter, Tilt, Terminal, SplitTitle } from "./ui.jsx";
+import { Reveal, Counter, Tilt, Terminal, SplitTitle, Icon } from "./ui.jsx";
+import { LuSatellite, LuRadioTower, LuGraduationCap, LuRocket, LuMapPin, LuCalendar } from "react-icons/lu";
 
 const termLines = [
   { cmd: "whoami" }, { out: "punnawit.kotosri — geospatial engineer, Bangkok" },
   { cmd: "cat research.txt" }, { out: "Sentinel-2 phenology → One-Class SVM → sugarcane / rice maps" },
   { cmd: "ls ./stack" }, { out: "python  pytorch  gdal  rasterio  fastapi  react  airflow  docker" },
   { cmd: "gnss --status" }, { out: "RTK FIXED · 32 sats · hAcc 1.4 cm · NTRIP caster online", ok: true },
-  { cmd: "next --where" }, { out: "PhD Space Engineering @ Moscow State University 🚀", ok: true },
+  { cmd: "next --where" }, { out: "PhD Space Engineering @ Moscow State University — launching soon", ok: true },
+];
+
+const now = [
+  { icon: LuSatellite, color: "var(--cyan)", title: "Mapping sugarcane from orbit", sub: "Sentinel-2 time series, Thailand" },
+  { icon: LuRadioTower, color: "var(--amber)", title: "RTK base station on the roof", sub: "u-blox ZED-F9P · NTRIP caster" },
+  { icon: LuRocket, color: "var(--violet)", title: "Heading to Moscow", sub: `PhD Space Engineering · ${profile.location} → Russia` },
 ];
 
 export default function About() {
   return (
     <section id="about" data-section className="section">
+      <span className="section-num" aria-hidden="true">01</span>
       <div className="wrap about-grid v2">
         <div>
           <Reveal>
-            <span className="eyebrow">About me</span>
+            <span className="eyebrow"><Icon.User size={14} /> About me</span>
             <SplitTitle text="Satellite data in, usable tools out." hl={["usable", "tools"]} />
           </Reveal>
           <Reveal delay={0.1}>
@@ -37,7 +45,7 @@ export default function About() {
           <Reveal delay={0.15}>
             <div className="metric-grid">
               {metrics.map((m) => (
-                <Tilt className="metric" key={m.label} max={10}>
+                <Tilt className="metric glow" key={m.label} max={10}>
                   <b><Counter value={m.value} /></b>
                   <span>{m.label}</span>
                 </Tilt>
@@ -46,13 +54,13 @@ export default function About() {
           </Reveal>
 
           <Reveal delay={0.2}>
-            <span className="eyebrow">Education</span>
+            <span className="eyebrow"><LuGraduationCap size={14} /> Education</span>
             <ol className="timeline">
-              {[...education].reverse().map((e) => (
-                <li key={e.degree}>
-                  <span className="when">{e.when}</span>
+              {[...education].reverse().map((e, i) => (
+                <li key={e.degree} className={i === 0 ? "is-next" : ""}>
+                  <span className="when"><LuCalendar size={12} /> {e.when}</span>
                   <strong>{e.degree}</strong>
-                  <span className="school">{e.school}</span>
+                  <span className="school"><LuMapPin size={12} /> {e.school}</span>
                 </li>
               ))}
             </ol>
@@ -61,11 +69,14 @@ export default function About() {
 
         <Reveal delay={0.1} className="about-aside">
           <Terminal lines={termLines} />
-          <div className="now-card">
+          <div className="now-card glow">
             <h4><span className="pulse" /> Right now</h4>
-            <div className="now-row"><i>🛰️</i><div><b>Mapping sugarcane from orbit</b><span>Sentinel-2 time series, Thailand</span></div></div>
-            <div className="now-row"><i>📡</i><div><b>RTK base station on the roof</b><span>u-blox ZED-F9P · NTRIP caster</span></div></div>
-            <div className="now-row"><i>🎓</i><div><b>Heading to Moscow</b><span>PhD Space Engineering · {profile.location} → Russia</span></div></div>
+            {now.map((n) => (
+              <div className="now-row" key={n.title}>
+                <i style={{ "--c": n.color }}><n.icon size={18} /></i>
+                <div><b>{n.title}</b><span>{n.sub}</span></div>
+              </div>
+            ))}
           </div>
         </Reveal>
       </div>
