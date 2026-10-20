@@ -38,11 +38,6 @@
 /* =========================================
    1. HOLOGRAPHIC DATA PANELS (Categories)
 ========================================= */
-.category-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
 
 .holo-panel-wrapper {
   position: relative;
@@ -108,6 +103,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 
 .premium-achievement-list li {
@@ -126,414 +122,134 @@
   font-weight: bold;
 }
 
-/* =========================================
-   2. GNSS RADAR METRICS
-========================================= */
-.radar-metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 24px;
-}
-
-.radar-box {
-  position: relative;
-  aspect-ratio: 1;
-  background: rgba(2, 5, 10, 0.8);
-  border-radius: 50%;
-  border: 2px solid rgba(0, 240, 255, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(0, 240, 255, 0.1);
-}
-
-/* Background Radar Grid */
-.radar-box::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(circle, transparent 20%, rgba(0, 240, 255, 0.2) 21%, transparent 22%, transparent 40%, rgba(0, 240, 255, 0.2) 41%, transparent 42%, transparent 60%, rgba(0, 240, 255, 0.2) 61%, transparent 62%),
-    linear-gradient(90deg, transparent 49.5%, rgba(0, 240, 255, 0.4) 50%, transparent 50.5%),
-    linear-gradient(0deg, transparent 49.5%, rgba(0, 240, 255, 0.4) 50%, transparent 50.5%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Sweeping Scanner Animation */
-.radar-scanner {
-  position: absolute;
-  inset: 0;
-  background: conic-gradient(from 0deg, transparent 70%, rgba(0, 240, 255, 0.8) 100%);
-  border-radius: 50%;
-  animation: radar-spin 4s linear infinite;
-  z-index: 2;
-  mix-blend-mode: screen;
-}
-
-@keyframes radar-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
 
 /* =========================================
-   UNIFIED 3D DASHBOARD (GNSS COMMAND CENTER)
+   TERMINAL MODE (NEW SKILLS DASHBOARD)
 ========================================= */
-
-.gnss-unified-dashboard {
-  position: relative;
-  width: 100%;
-  transform-style: preserve-3d;
-  cursor: crosshair; /* Adds to the command center feel */
+.terminal-mode {
+  padding: 40px 0;
 }
 
-.dashboard-connections {
-  pointer-events: none;
-  opacity: 0.8;
-  filter: drop-shadow(0 0 10px #00f0ff);
+.terminal-left-col {
+  /* No special styles needed, container handles perspective */
 }
 
-/* LEFT SIDE PANELS (Modified for unified tilt) */
-.category-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  transform-style: preserve-3d;
+/* Interactive Cards (Left Side) */
+.interactive-card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  background: rgba(10, 15, 30, 0.6);
 }
 
-.holo-panel-wrapper {
-  position: relative;
-  background: rgba(10, 15, 30, 0.5);
-  border: 1px solid rgba(0, 240, 255, 0.15);
+.interactive-card:not(.active):hover {
+  border-color: rgba(0, 240, 255, 0.6);
+  transform: translateY(-5px) !important; /* Slight lift on hover */
+}
+
+.interactive-card.active {
+  background: rgba(5, 10, 20, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.8);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(0, 240, 255, 0.1);
+}
+
+/* Compact HUD (Right Side) */
+.compact-hud-container {
+  background: rgba(5, 10, 20, 0.7);
+  border: 1px solid rgba(168, 85, 247, 0.3);
   border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 240, 255, 0.05);
-  backdrop-filter: blur(15px);
-  transform-style: preserve-3d;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(168, 85, 247, 0.05);
 }
 
-.holo-panel-wrapper:hover {
-  border-color: rgba(0, 240, 255, 0.5);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), inset 0 0 30px rgba(0, 240, 255, 0.15);
-}
-
-.holo-bg-grid {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-  background-size: 20px 20px;
-  border-radius: 16px;
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-.holo-panel-content {
-  position: relative;
-  z-index: 10;
-  transform-style: preserve-3d;
-}
-
-/* RIGHT SIDE ISOMETRIC RADARS */
-.isometric-radars {
-  perspective: 1500px;
-  transform-style: preserve-3d;
-}
-
-.radar-box-isometric {
-  position: relative;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  margin: 0 auto;
-  /* Key isometric transformation */
-  transform: rotateX(60deg) rotateZ(-30deg);
-  transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.radar-box-isometric:hover {
-  transform: rotateX(50deg) rotateZ(-20deg) scale(1.1) !important; /* overrides inline translateZ temporarily */
-}
-
-/* The Radar Dish Base */
-.radar-base {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 2px solid rgba(0, 240, 255, 0.4);
-  background: rgba(0, 240, 255, 0.05);
-  box-shadow: 
-    0 20px 50px rgba(0, 240, 255, 0.2), 
-    inset 0 0 40px rgba(0, 240, 255, 0.1);
-  /* Circular grid lines */
-  background-image: 
-    radial-gradient(circle, transparent 40%, rgba(0, 240, 255, 0.2) 41%, transparent 42%),
-    radial-gradient(circle, transparent 70%, rgba(0, 240, 255, 0.3) 71%, transparent 72%);
-  transform: translateZ(0);
-}
-
-.radar-box-isometric::before {
-  content: '';
-  position: absolute;
-  top: 50%; left: 0; right: 0; height: 1px;
-  background: rgba(0, 240, 255, 0.3);
-  transform: translateY(-50%);
-}
-
-.radar-box-isometric::after {
-  content: '';
-  position: absolute;
-  left: 50%; top: 0; bottom: 0; width: 1px;
-  background: rgba(0, 240, 255, 0.3);
-  transform: translateX(-50%);
-}
-
-.radar-scanner {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 70%,
-    rgba(0, 240, 255, 0.1) 90%,
-    rgba(0, 240, 255, 0.6) 100%
-  );
-  animation: radar-spin 4s linear infinite;
-  z-index: 5;
-  transform: translateZ(5px);
-}
-
-/* Radar Content popping up in Z axis */
-.radar-content-isometric {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-  /* Counter rotate so text is readable */
-  transform: rotateX(-60deg) rotateZ(30deg) translateZ(40px);
-  text-align: center;
-  pointer-events: none;
-}
-
-.radar-value {
-  font-size: 42px;
-  font-weight: 900;
-  color: #fff;
-  text-shadow: 0 0 20px rgba(0, 240, 255, 0.8), 0 5px 10px rgba(0, 0, 0, 0.8);
-  line-height: 1;
-}
-
-.radar-label {
-  font-size: 11px;
-  font-weight: 700;
-  color: #00f0ff;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-top: 8px;
-  background: rgba(10, 15, 30, 0.8);
-  padding: 4px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 240, 255, 0.3);
-}
-
-/* =========================================
-   3. ORBITAL SATELLITE TECH STACK
-========================================= */
-.orbital-system-container {
-  position: relative;
-  margin-top: 100px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 10;
-}
-
-.orbital-title {
-  color: #a855f7;
-  font-size: 24px;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  margin-bottom: 60px;
-  text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
-}
-
-.orbital-system {
-  position: relative;
-  width: 800px;
-  height: 800px;
+.hud-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  transform: perspective(1000px) rotateX(60deg);
-  transform-style: preserve-3d;
+  gap: 10px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+  padding-bottom: 12px;
 }
 
-/* Core Planet */
-.core-planet {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  z-index: 100;
-  transform: rotateX(-60deg); /* Counter rotate to face camera */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.planet-core {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff, #00f0ff 30%, #002244 80%);
-  box-shadow: inset -10px -10px 20px rgba(0,0,0,0.8), 0 0 40px #00f0ff;
-}
-
-.planet-glow {
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(0, 240, 255, 0.4) 0%, transparent 60%);
-  z-index: -1;
-  animation: pulse 4s ease-in-out infinite alternate;
-}
-
-@keyframes pulse {
-  0% { transform: scale(0.8); opacity: 0.5; }
-  100% { transform: scale(1.2); opacity: 1; }
-}
-
-/* Orbit Rings */
-.orbit-ring {
-  position: absolute;
-  border: 1px dashed rgba(255, 255, 255, 0.15);
-  border-radius: 50%;
-  transform-style: preserve-3d;
-}
-
-/* Satellites */
-.orbit-satellite-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  transform-style: preserve-3d;
-}
-
-.orbit-satellite-content {
-  position: absolute;
-  top: -25px; 
-  left: -25px;
-  width: 50px;
-  height: 50px;
-  background: rgba(10, 15, 30, 0.9);
-  border: 1px solid rgba(168, 85, 247, 0.5);
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
-  backdrop-filter: blur(5px);
-  z-index: 10;
-}
-
-/* Keyframes for each orbit radius */
-@keyframes spin-orbit-150 {
-  from { transform: rotateZ(0deg) translateX(150px) rotateZ(0deg) rotateX(-60deg); }
-  to { transform: rotateZ(360deg) translateX(150px) rotateZ(-360deg) rotateX(-60deg); }
-}
-
-@keyframes spin-orbit-250 {
-  from { transform: rotateZ(0deg) translateX(250px) rotateZ(0deg) rotateX(-60deg); }
-  to { transform: rotateZ(-360deg) translateX(250px) rotateZ(360deg) rotateX(-60deg); } /* Reverse spin for mid ring */
-}
-
-@keyframes spin-orbit-350 {
-  from { transform: rotateZ(0deg) translateX(350px) rotateZ(0deg) rotateX(-60deg); }
-  to { transform: rotateZ(360deg) translateX(350px) rotateZ(-360deg) rotateX(-60deg); }
-}
-
-.tech-icon {
+.hud-icon {
   font-size: 20px;
 }
 
-.tech-name {
-  position: absolute;
-  bottom: -25px;
-  font-size: 11px;
-  color: #fff;
-  white-space: nowrap;
-  background: rgba(0,0,0,0.6);
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid rgba(255,255,255,0.1);
+.hud-title {
+  color: #a855f7;
+  font-size: 18px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 2px;
 }
 
-/* Responsive Scaling for Orbit */
+.hud-metrics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hud-metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hud-metric-value-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hud-metric-value {
+  color: #00f0ff;
+  font-size: 28px;
+  font-weight: 900;
+  min-width: 60px;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.hud-energy-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hud-energy-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00f0ff, #a855f7);
+  border-radius: 3px;
+  box-shadow: 0 0 10px #00f0ff;
+}
+
+.hud-metric-label {
+  color: #a1a1aa;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive */
 @media (max-width: 992px) {
-  .orbital-system {
-    transform: perspective(1000px) rotateX(60deg) scale(0.6);
-    margin-top: -100px;
-    margin-bottom: -100px;
-  }
-  
   .dashboard-connections {
-    display: none; /* Hide SVG circuitry when stacked */
+    display: none;
   }
-  
-  .gnss-unified-dashboard {
-    /* Reduce global tilt on smaller screens to prevent overflow/dizziness */
-    transform: none !important;
-  }
-  
-  .radar-metrics-grid {
-    margin-top: 50px;
+  .stacked-cards-container {
+    height: 450px !important; /* More space for mobile */
   }
 }
 
 @media (max-width: 576px) {
-  .orbital-system {
-    transform: perspective(1000px) rotateX(60deg) scale(0.4);
-    margin-top: -200px;
-    margin-bottom: -200px;
+  .stacked-cards-container {
+    height: 500px !important;
   }
-  
-  .radar-metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-  
-  .radar-box-isometric {
-    width: 140px;
-    height: 140px;
-  }
-  
-  .radar-value {
-    font-size: 24px;
-  }
-  
-  .radar-label {
-    font-size: 8px;
-    padding: 2px 8px;
-  }
-  
-  .radar-content-isometric {
-    transform: rotateX(-60deg) rotateZ(30deg) translateZ(20px);
-  }
-  
   .holo-panel-wrapper {
     padding: 20px;
+  }
+  .hud-metric-value {
+    font-size: 24px;
   }
 }

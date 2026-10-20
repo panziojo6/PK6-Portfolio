@@ -1,121 +1,80 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import {
-  HomeOutlined,
-  UserOutlined,
-  SettingOutlined,
-  AppstoreOutlined,
-  SafetyCertificateOutlined,
-  MailOutlined,
-} from "@ant-design/icons";
-import "../css/navbar.css";
+import { ScrollProgress, Icon } from "./ui.jsx";
 
-const navItems = [
-  { id: "home", label: "Home", icon: <HomeOutlined /> },
-  { id: "about", label: "About", icon: <UserOutlined /> },
-  { id: "skills", label: "Skills", icon: <SettingOutlined /> },
-  { id: "projects", label: "Projects", icon: <AppstoreOutlined /> },
-  { id: "certificates", label: "Certificates", icon: <SafetyCertificateOutlined /> },
-  { id: "contact", label: "Contact", icon: <MailOutlined /> },
+const base = import.meta.env.BASE_URL;
+
+const links = [
+  { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
+  { id: "recognition", label: "Recognition" },
+  { id: "contact", label: "Contact" },
 ];
 
-export default function HeaderBar() {
-  const [active, setActive] = useState("home");
-  const [scrolled, setScrolled] = useState(false);
-  const base = import.meta.env.BASE_URL;
+function useTheme() {
+  const [theme, setTheme] = useState(() => {
+    try { return localStorage.getItem("pk6-theme") || "dark"; } catch { return "dark"; }
+  });
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem("pk6-theme", theme); } catch { /* ignore */ }
+  }, [theme]);
+  return [theme, () => setTheme((t) => (t === "dark" ? "light" : "dark"))];
+}
 
-  // IntersectionObserver to set active link
+export default function Header() {
+  const [active, setActive] = useState("");
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [theme, toggleTheme] = useTheme();
+
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "-40% 0px -60% 0px" }
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: "-40% 0px -55% 0px" }
     );
-
-    const sections = document.querySelectorAll("section[id]");
-    sections.forEach((s) => observer.observe(s));
+    document.querySelectorAll("[data-section]").forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <>
-      <motion.header
-        className={`nav-premium desktop-nav-only ${scrolled ? "nav-premium-scrolled" : ""}`}
-        initial={{ y: -40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="nav-premium-inner">
-          <div className="nav-brand">
-            <div className="brand-img-ring">
-              <img src={`${base}img/profile.jpeg`} alt="PK6" className="brand-img" />
-            </div>
-            <div className="nav-logo">PK6</div>
-          </div>
+    <motion.header
+      className={`site-header ${scrolled ? "is-scrolled" : ""} ${open ? "is-open" : ""}`}
+      initial={{ y: -80 }} animate={{ y: 0 }} transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
+    >
+      <div className="wrap header-row">
+        <a href="#top" className="brand" onClick={() => setOpen(false)}>
+          <span className="brand-avatar"><img src={`${base}img/profile.jpeg`} alt="" width="36" height="36" /><span className="dot" /></span>
+          <span className="brand-text">Punnawit Kotosri<small>Geospatial · ML · GNSS</small></span>
+        </a>
 
-          {/* DESKTOP LINKS */}
-          <nav className="nav-links">
-            {navItems.map((item) => (
-              <motion.a
-                key={item.id}
-                href={`#${item.id}`}
-                className={`nav-link ${active === item.id ? "active" : ""}`}
-                whileHover={{ scale: 1.08 }}
-              >
-                {item.label}
-                {active === item.id && (
-                  <motion.div
-                    className="nav-laser-line"
-                    layoutId="activeSectionDesktop"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </motion.a>
-            ))}
-          </nav>
-        </div>
-      </motion.header>
-
-      {/* MOBILE BOTTOM NAV */}
-      <motion.div 
-        className="mobile-bottom-nav"
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        <div className="bottom-nav-inner">
-          {navItems.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className={`bottom-nav-item ${active === item.id ? "active" : ""}`}
-            >
-              <span className="bottom-nav-icon">{item.icon}</span>
-              <span className="bottom-nav-label">{item.label}</span>
-              {active === item.id && (
-                <motion.div
-                  className="bottom-nav-active-bg"
-                  layoutId="activeSectionMobile"
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                />
-              )}
+        <nav id="site-nav" className="site-nav" aria-label="Sections">
+          {links.map((l) => (
+            <a key={l.id} href={`#${l.id}`} aria-current={active === l.id ? "true" : undefined} onClick={() => setOpen(false)}>
+              {active === l.id && <motion.span layoutId="nav-pill" className="nav-pill" transition={{ type: "spring", stiffness: 350, damping: 30 }} />}
+              {l.label}
             </a>
           ))}
+        </nav>
+
+        <div className="header-actions">
+          <button type="button" className="icon-btn" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`} title="Toggle theme">
+            {theme === "dark" ? <Icon.Sun /> : <Icon.Moon />}
+          </button>
+          <button type="button" className="icon-btn menu-toggle" aria-expanded={open} aria-controls="site-nav" onClick={() => setOpen((v) => !v)} aria-label="Menu">
+            {open ? <Icon.Close /> : <Icon.Menu />}
+          </button>
         </div>
-      </motion.div>
-    </>
+      </div>
+      <ScrollProgress />
+    </motion.header>
   );
 }

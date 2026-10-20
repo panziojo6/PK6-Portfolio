@@ -30,3 +30,6 @@ dist-ssr/
 *.sln
 *.sw?
 
+
+# backup of src before redesign
+.design-backup/
