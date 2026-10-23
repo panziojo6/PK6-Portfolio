@@ -1,0 +1,255 @@
+/* =========================================
+   GNSS COMMAND CENTER THEME
+========================================= */
+
+.gnss-command-center {
+  position: relative;
+  min-height: 100vh;
+  padding: 100px 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* Background Map */
+.topo-bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 60%),
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 50px 50px, 50px 50px;
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.gnss-content-wrapper {
+  position: relative;
+  z-index: 10;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* =========================================
+   1. HOLOGRAPHIC DATA PANELS (Categories)
+========================================= */
+
+.holo-panel-wrapper {
+  position: relative;
+  width: 100%;
+  background: rgba(5, 10, 20, 0.7);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 16px;
+  backdrop-filter: blur(15px);
+  padding: 32px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 240, 255, 0.05);
+  transition: border 0.3s ease;
+  overflow: hidden;
+}
+
+.holo-panel-wrapper:hover {
+  border-color: rgba(0, 240, 255, 0.6);
+  box-shadow: 0 10px 40px rgba(0, 240, 255, 0.2), inset 0 0 30px rgba(0, 240, 255, 0.1);
+}
+
+.holo-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(0, 240, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.holo-panel-wrapper:hover .holo-bg-grid {
+  opacity: 0.5;
+}
+
+.holo-panel-content {
+  position: relative;
+  z-index: 1;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.glow-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.premium-cat-title {
+  font-size: 24px;
+  color: #fff;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.premium-achievement-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.premium-achievement-list li {
+  color: #a1a1aa;
+  font-size: 15px;
+  margin-bottom: 12px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.premium-achievement-list li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: #00f0ff;
+  font-weight: bold;
+}
+
+
+/* =========================================
+   TERMINAL MODE (NEW SKILLS DASHBOARD)
+========================================= */
+.terminal-mode {
+  padding: 40px 0;
+}
+
+.terminal-left-col {
+  /* No special styles needed, container handles perspective */
+}
+
+/* Interactive Cards (Left Side) */
+.interactive-card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  background: rgba(10, 15, 30, 0.6);
+}
+
+.interactive-card:not(.active):hover {
+  border-color: rgba(0, 240, 255, 0.6);
+  transform: translateY(-5px) !important; /* Slight lift on hover */
+}
+
+.interactive-card.active {
+  background: rgba(5, 10, 20, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.8);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(0, 240, 255, 0.1);
+}
+
+/* Compact HUD (Right Side) */
+.compact-hud-container {
+  background: rgba(5, 10, 20, 0.7);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 16px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(168, 85, 247, 0.05);
+}
+
+.hud-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+  padding-bottom: 12px;
+}
+
+.hud-icon {
+  font-size: 20px;
+}
+
+.hud-title {
+  color: #a855f7;
+  font-size: 18px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.hud-metrics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hud-metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hud-metric-value-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hud-metric-value {
+  color: #00f0ff;
+  font-size: 28px;
+  font-weight: 900;
+  min-width: 60px;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.hud-energy-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hud-energy-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00f0ff, #a855f7);
+  border-radius: 3px;
+  box-shadow: 0 0 10px #00f0ff;
+}
+
+.hud-metric-label {
+  color: #a1a1aa;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .dashboard-connections {
+    display: none;
+  }
+  .stacked-cards-container {
+    height: 450px !important; /* More space for mobile */
+  }
+}
+
+@media (max-width: 576px) {
+  .stacked-cards-container {
+    height: 500px !important;
+  }
+  .holo-panel-wrapper {
+    padding: 20px;
+  }
+  .hud-metric-value {
+    font-size: 24px;
+  }
+}

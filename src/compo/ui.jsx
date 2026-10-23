@@ -193,6 +193,7 @@ export function useToast() {
   const timer = useRef(0);
   const show = useCallback((m) => {
     setMsg(m);
+    window.dispatchEvent(new CustomEvent("pk6:island", { detail: { text: m, icon: "Check" } })); /* echo on the header island */
     window.clearTimeout(timer.current);
     timer.current = window.setTimeout(() => setMsg(null), 2200);
   }, []);
