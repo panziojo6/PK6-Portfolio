@@ -6,7 +6,7 @@ import {
 import {
   LuSun, LuMoon, LuMenu, LuX, LuArrowRight, LuArrowUpRight, LuArrowLeft, LuArrowUp, LuPlay, LuMail, LuCopy, LuLinkedin,
   LuMove3D, LuCheck, LuExternalLink, LuSatellite, LuRadio, LuGraduationCap, LuRocket, LuMapPin, LuHouse, LuUser,
-  LuFolderOpen, LuSparkles, LuAward, LuSend, LuTerminal, LuMousePointer2, LuCalendar, LuClock, LuGithub, LuDownload,
+  LuFolderOpen, LuSparkles, LuAward, LuSend, LuTerminal, LuMousePointer2, LuCalendar, LuClock, LuGithub, LuDownload, LuCrosshair,
 } from "react-icons/lu";
 
 /* ------------------------------------------------------------------ icons */
@@ -17,7 +17,7 @@ export const Icon = {
   Play: LuPlay, Mail: LuMail, Copy: LuCopy, Linkedin: LuLinkedin, Github: LuGithub, Drag: LuMove3D, Check: LuCheck, External: LuExternalLink,
   Satellite: LuSatellite, Radio: LuRadio, Graduation: LuGraduationCap, Rocket: LuRocket, Pin: LuMapPin, Home: LuHouse, User: LuUser,
   Folder: LuFolderOpen, Sparkles: LuSparkles, Award: LuAward, Send: LuSend, Terminal: LuTerminal, Pointer: LuMousePointer2,
-  Calendar: LuCalendar, Clock: LuClock, Download: LuDownload,
+  Calendar: LuCalendar, Clock: LuClock, Download: LuDownload, Crosshair: LuCrosshair,
 };
 
 /* ---------------------------------------------------------- device hooks */

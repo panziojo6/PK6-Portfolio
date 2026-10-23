@@ -975,3 +975,19 @@ body.menu-open .dock, body.menu-open .to-top, body.menu-open .cursor-label { dis
 .notch.is-alert .led { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
 .notch.is-alert .led--live::after { border-color: var(--accent); animation-duration: 1.1s; }
 @media (prefers-reduced-motion: reduce) { .site-header.is-scrolled .notch.is-compact { animation: none; } }
+
+/* --- island: pipeline / map flavour --- */
+.mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+.notch-coords { display: inline-flex; align-items: center; gap: 7px; padding: 0 6px 0 2px; font-size: 11px; color: var(--notch-muted); min-width: 158px; }
+.notch-coords .notch-sat { animation: none; }
+.island--alert .island-text.mono { font-size: 12.5px; font-weight: 500; }
+.island--compact .island-clock { font-size: 11px; }
+.dag { display: block; overflow: visible; }
+.dag-edge { stroke: rgba(255, 255, 255, 0.18); stroke-width: 1; stroke-dasharray: 2 2; }
+.dag-edge--done { stroke: var(--green); stroke-dasharray: none; opacity: 0.8; transition: x2 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.dag-node { fill: #2a3040; stroke: rgba(255, 255, 255, 0.22); stroke-width: 1; transition: fill 0.4s, stroke 0.4s; }
+.dag-node.is-done { fill: var(--green); stroke: var(--green); }
+.dag-node.is-running { fill: var(--accent); stroke: var(--accent); animation: dag-run 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes dag-run { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.75; } }
+@media (prefers-reduced-motion: reduce) { .dag-node.is-running { animation: none; } }
+@media (max-width: 960px) { .notch-coords { display: none; } }
